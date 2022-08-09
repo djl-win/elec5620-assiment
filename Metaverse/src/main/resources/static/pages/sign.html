@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/sign.css">
+</head>
+<body>
+<div id="loginForm" class="loginbody">
+    <div class="logindata">
+        <div class="logintext">
+            <h2>WELCOME TO METAVERSE</h2>
+        </div>
+        <div class="formdata">
+            <el-form ref="loginForm" :model="loginForm" :rules="rules">
+                <el-form-item prop="userUsername">
+                    <el-input
+                            v-model="loginForm.userUsername"
+                            clearable
+                            placeholder="Please enter your username"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="userPassword">
+                    <el-input
+                            v-model="loginForm.userPassword"
+                            clearable
+                            placeholder="Please enter your password"
+                            show-password
+                    ></el-input>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="tool">
+            <div>
+                <el-checkbox v-model="checked" @change="remember">
+                    <span id = "rem">remember password</span>
+                </el-checkbox
+                >
+            </div>
+            <div>
+                <span class="shou" @click="forgetpas">forgot password？</span>
+            </div>
+        </div>
+        <div class="butt">
+            <el-button type="primary" @click.native.prevent="login('loginForm')"
+            >sign in
+            </el-button
+            >
+            <el-button class="shou" @click="dialogVisible = true">register</el-button>
+        </div>
+    </div>
+
+    <!-- 注册页面 -->
+    <div class="registerBody">
+        <el-dialog
+                title="Register"
+                :visible.sync="dialogVisible"
+                width="60%"
+                :before-close="handleClose"
+                append-to-body> <!--append取出阴影-->
+
+            <el-form :model="registerForm" :rules="rules" ref="registerForm" prop="registerForm"
+                     class="registerFormBody">
+                <el-form-item prop="userUsername">
+
+                    Username:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <el-input
+                            id="registerText1"
+                            style="width:300px"
+                            v-model="registerForm.userUsername"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="userPassword">
+                    Password:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <el-input
+                            id="registerText2"
+                            style="width:300px"
+                            v-model="registerForm.userPassword"
+                            show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="checkPassword">
+                    Password again:&nbsp&nbsp
+                    <el-input
+                            id="registerText3"
+                            style="width:300px"
+                            v-model="registerForm.checkPassword"
+                            show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="verificationCode">
+                    <div class = "codecss">
+                        <div>
+                            <span>checked code:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                        </div>
+                        <div>
+                            <el-input
+                                    id="registerText4"
+                                    style="width:100px"
+                                    maxlength="4"
+                                    v-model="registerForm.verificationCode"
+                            ></el-input>
+                        </div>
+                        <div>
+                            <el-image
+                                    style="width: 100px; height: 40px"
+                                    :src="codeUrl"
+                            ></el-image>
+                            <el-link type="danger" @click="changeImg">看不清？</el-link>
+                        </div>
+                    </div>
+
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="primary" @click="register('registerForm')" align="center">立即注册</el-button>
+                    <el-button type="danger" @click="dialogVisible=false" align="center">取消</el-button>
+                </el-form-item>
+            </el-form>
+
+            </span>
+        </el-dialog>
+    </div>
+</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!-- 引入样式 -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="../js/sign.js"></script>
+
+</html>

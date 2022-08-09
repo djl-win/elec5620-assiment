@@ -1,0 +1,66 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/db_5620
+    username: postgres
+    password: dbh123456
+    type: com.alibaba.druid.pool.DruidDataSource
+  #development environment
+  profiles:
+    active: "@profile.active@"
+  #hot deploy config
+  devtools:
+    restart:
+      enabled: false
+
+mybatis:
+  type-aliases-package: com.group3.domain
+  mapper-locations: classpath:com/group3/dao/*.xml
+  #log information
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#log level
+debug: false
+logging:
+  logback:
+    rollingpolicy:
+      #MAX SIZE OF LOG FILE
+      max-file-size: 100KB
+      file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
+  #level
+  level:
+    com.group3.controller: info
+    ebank: warn
+    root: info
+
+---
+server:
+  port: 8080
+  servlet:
+    context-path: /5620
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+---
+server:
+  port: 8080
+  servlet:
+    context-path: /product
+
+
+spring:
+  config:
+    activate:
+      on-profile: pro
+---
+server:
+  port: 8080
+  servlet:
+    context-path: /test
+
+spring:
+  config:
+    activate:
+      on-profile: test

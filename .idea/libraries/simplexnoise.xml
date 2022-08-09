@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="simplexnoise" type="javaScript">
+    <CLASSES />
+    <DOCUMENTATION>
+      <root url="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/4.0.0/simplex-noise.ts" />
+    </DOCUMENTATION>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

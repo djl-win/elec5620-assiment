@@ -1,0 +1,80 @@
+.loginbody {
+    width: 100%;
+    height: 100%;
+    min-width: 1000px;
+    background-image: url("../asset/signBackground.jpg");
+    background-size: 100% 100%;
+    background-position: center center;
+    overflow: auto;
+    background-repeat: no-repeat;
+    position: fixed;
+    line-height: 100%;
+    padding-top: 150px;
+}
+
+.logintext {
+    margin-bottom: 20px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bolder;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.registerFormBody {
+    transform: translate(-50%);
+    margin-left: 50%;
+}
+
+
+.logindata {
+    width: 400px;
+    height: 300px;
+    transform: translate(-50%);
+    margin-left: 50%;
+}
+
+.tool {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+
+
+.codecss {
+    left: 300px;
+    display: flex;
+    color: black;
+}
+
+.butt {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.shou {
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+}
+
+#rem{
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+}
+
+/*ui*/
+/* /deep/ .el-form-item__label {
+  font-weight: bolder;
+  font-size: 15px;
+  text-align: left;
+}
+
+/deep/ .el-button {
+  width: 100%;
+  margin-bottom: 10px;
+
+} */
