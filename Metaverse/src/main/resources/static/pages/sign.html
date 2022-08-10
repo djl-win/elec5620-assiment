@@ -12,7 +12,7 @@
             <h2>WELCOME TO METAVERSE</h2>
         </div>
         <div class="formdata">
-            <el-form ref="loginForm" :model="loginForm" :rules="rules">
+            <el-form class="inputK" ref="loginForm" :model="loginForm" :rules="rules">
                 <el-form-item prop="userUsername">
                     <el-input
                             v-model="loginForm.userUsername"
@@ -32,8 +32,8 @@
         </div>
         <div class="tool">
             <div>
-                <el-checkbox v-model="checked" @change="remember">
-                    <span id = "rem">remember password</span>
+                <el-checkbox id = "rem" v-model="checked" @change="remember">
+                    <span>remember password</span>
                 </el-checkbox
                 >
             </div>
@@ -46,7 +46,7 @@
             >sign in
             </el-button
             >
-            <el-button class="shou" @click="dialogVisible = true">register</el-button>
+            <el-button @click="dialogVisible = true">register</el-button>
         </div>
     </div>
 
@@ -133,3 +133,4 @@
 <script type="text/javascript" src="../js/sign.js"></script>
 
 </html>
+

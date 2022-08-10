@@ -10,16 +10,22 @@
     position: fixed;
     line-height: 100%;
     padding-top: 150px;
+
 }
 
 .logintext {
+    position: absolute;
+    top: -10px;
+    left: 65px;
+    font-family: Cambria, serif;
     margin-bottom: 20px;
     line-height: 50px;
     text-align: center;
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bolder;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    font-style: italic;
+    text-shadow: 10px 2px 4px lightskyblue;
 }
 
 .registerFormBody {
@@ -29,14 +35,26 @@
 
 
 .logindata {
-    width: 400px;
+
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
     height: 300px;
-    transform: translate(-50%);
-    margin-left: 50%;
+    background: #111845a6;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgb(23, 32, 90);
+    /*border: 2px solid #2a3cad;*/
+    color: white;
+    padding: 20px;
+
 }
 
 .tool {
     display: flex;
+    top: 150px;
     justify-content: space-between;
     color: white;
 }
@@ -50,17 +68,34 @@
 }
 
 .butt {
+    position: absolute;
+    display: flex;
+    bottom: 20px;
+    right: 150px;
     margin-top: 10px;
     text-align: center;
 }
 
+.inputK{
+    position: absolute;
+    top: 80px;
+    width: 68%;
+    left: 74px;
+}
+
 .shou {
+    position: absolute;
+    right: 70px;
+    top: 207px;
     cursor: pointer;
     color: white;
     font-size: 15px;
 }
 
 #rem{
+    position: absolute;
+    left: 70px;
+    top: 207px;
     cursor: pointer;
     color: white;
     font-size: 15px;
