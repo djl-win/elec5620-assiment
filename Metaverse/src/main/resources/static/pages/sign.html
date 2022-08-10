@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../css/sign.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css'>
 </head>
 <body>
 <div id="loginForm" class="loginbody">
@@ -121,6 +124,42 @@
             </span>
         </el-dialog>
     </div>
+
+    <!-- 验证码页面 -->
+    <div class="verificationBody" :style="{'display': VisibleVerification}">
+        <form class="verification" :model="VerificationEl">
+            <section class="verification__wrap">
+                <header class="verification__header">
+                    <h2 class="verification__title">Verification Code</h2>
+                    <p class="verification__description">
+                        we was send 6 length verification code, enter it on blow entery
+                    </p>
+                </header>
+
+                <section class="verification__fields">
+                    <fieldset class="verification__field">
+                        <legend>
+                            <!-- HINT : write something here for more accesability  -->
+                        </legend>
+                        <input v-model="VerificationEl.el1" type="text" class="verification__input verification__input--1" id="verification-input-1" placeholder="-" maxlength="1" />
+                        <input v-model="VerificationEl.el2" type="text" class="verification__input verification__input--2" id="verification-input-2" placeholder="-" maxlength="1" />
+                        <input v-model="VerificationEl.el3" type="text" class="verification__input verification__input--3" id="verification-input-3" placeholder="-" maxlength="1" />
+                        <input v-model="VerificationEl.el4" type="text" class="verification__input verification__input--4" id="verification-input-4" placeholder="-" maxlength="1" />
+                        <input v-model="VerificationEl.el5" type="text" class="verification__input verification__input--5" id="verification-input-5" placeholder="-" maxlength="1" />
+                        <input v-model="VerificationEl.el6" type="text" class="verification__input verification__input--6" id="verification-input-6" placeholder="-" maxlength="1" />
+                    </fieldset>
+                </section>
+
+                <section class="verification__verify">
+                    <p>
+                        <input type="button" class="verification__verify_btn" @click="submitVerificationCode('loginForm')" value="VERIFY"></input>
+                    </p>
+                </section>
+            </section>
+        </form>
+    </div>
+
+
 </div>
 </body>
 

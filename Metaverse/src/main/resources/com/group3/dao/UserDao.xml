@@ -11,10 +11,26 @@
         <result property="userDeleted" column="user_deleted"/>
     </resultMap>
 
+    <resultMap id="userDetailResultMap" type="UserDetail">
+        <id property="userDetailId" column="userdetail_id"/>
+        <result property="userDetailName" column="userdetail_name"/>
+        <result property="userDetailEmail" column="userdetail_email"/>
+        <result property="userDetailPhone" column="userdetail_phone"/>
+        <result property="userDetailDeleted" column="userdetail_deleted"/>
+        <result property="userDetailUserId" column="userdetail_userid"/>
+    </resultMap>
+
+
     <select id="signByUser" resultMap="userResultMap">
         select user_id
         from tb_user
-        where user_username = #{userUsername} and user_password = #{userPassword}
+        where user_username = #{userUsername} and user_password = #{userPassword} and user_deleted != 1
     </select>
+    <select id="getPhoneNumber" resultType="java.lang.String">
+        select userdetail_phone
+        from tb_userdetail
+        where userdetail_userid = #{id} and userdetail_deleted != 1;
+    </select>
+
 
 </mapper>

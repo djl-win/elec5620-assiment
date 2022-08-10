@@ -12,6 +12,20 @@ new Vue({
         };
         return {
 
+            //绑定验证码
+            VerificationEl: {
+                el1:"",
+                el2:"",
+                el3:"",
+                el4:"",
+                el5:"",
+                el6:"",
+            },
+
+
+            //验证码页面的显示
+            VisibleVerification: "none",
+
             //验证码图片地址（未开发）
             codeUrl: '#',
 
@@ -71,6 +85,53 @@ new Vue({
             var milliseconds = new Date().getMilliseconds();
             this.codeUrl = '#?'+milliseconds;
         },
+        //检验验证码
+        submitVerificationCode(form){
+            //拼接验证码
+            const checkCode = this.VerificationEl.el1 + this.VerificationEl.el2 + this.VerificationEl.el3 + this.VerificationEl.el4 + this.VerificationEl.el5 + this.VerificationEl.el6;
+            console.log(checkCode);
+
+            var _this = this;
+            this.$refs[form].validate((valid) => {
+                if (valid) {
+                    axios({
+                        method: "get",
+                        url: "/5620/users/"+checkCode,
+                    }).then(function (res) {
+                            console.log(res.data)
+                            //响应状态码为40011
+                            if (res.data.code === 40011) {
+                                location.href = "/5620/pages/detail.html";
+                            } else if (res.data.code === 40010) {
+                                //清空所有信息
+                                _this.VisibleVerification = "none";
+                                _this.VerificationEl.el1="";
+                                _this.VerificationEl.el2="";
+                                _this.VerificationEl.el3="";
+                                _this.VerificationEl.el4="";
+                                _this.VerificationEl.el5="";
+                                _this.VerificationEl.el6="";
+
+                                _this.$message({
+                                    message: res.data.msg,
+                                    type: "error",
+                                    showClose: true,
+                                })
+                            }
+                        }
+                    ).catch((err) => {
+                        _this.$message({
+                            message: "Fail to log in",
+                            type: "error",
+                            showClose: true,
+                        });
+                    });
+                } else {
+                    return false;
+                }
+            });
+        },
+
 
         //登陆表单
         login(form) {
@@ -82,10 +143,12 @@ new Vue({
                         url: "/5620/users",
                         data: _this.loginForm
                     }).then(function (res) {
-                            console.log(res.data)
+                            // console.log(res.data)
                             //响应状态码为40011
                             if (res.data.code === 40011) {
-                                location.href = "/5620/pages/detail.html";
+                                _this.VisibleVerification = "block";
+                                console.log(res.data);
+                                // location.href = "/5620/pages/detail.html";
                             } else if (res.data.code === 40010) {
                                 //清空所有信息
                                 _this.loginForm.userUsername = "";

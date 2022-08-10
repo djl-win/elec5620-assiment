@@ -20,18 +20,20 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #log level
-debug: false
-logging:
-  logback:
-    rollingpolicy:
-      #MAX SIZE OF LOG FILE
-      max-file-size: 100KB
-      file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
-  #level
-  level:
-    com.group3.controller: info
-    ebank: warn
-    root: info
+#debug: false
+#logging:
+#  file:
+#    name: 5620.log
+#  logback:
+#    rollingpolicy:
+#      #MAX SIZE OF LOG FILE
+#      max-file-size: 100KB
+#      file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
+#  #level
+#  level:
+#    com.group3.controller: info
+#    ebank: warn
+#    root: info
 
 ---
 server:

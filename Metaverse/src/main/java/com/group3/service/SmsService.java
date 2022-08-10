@@ -1,12 +1,12 @@
 package com.group3.service;
 
-import com.group3.domain.User;
+import com.group3.domain.SmsMessage;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(timeout = -1, rollbackFor = Exception.class)
-public interface UserService {
+public interface SmsService {
 
-    User login(User user);
+    String sentCode(String tel);
 
-    String getPhone(int userid);
+    boolean checkCode(SmsMessage smsMessage);
 }

@@ -21,4 +21,11 @@ public class UserServiceTest {
         boolean flag = userService.login(user) != null;
         System.out.println(flag);
     }
+
+    @Test
+    public void testGetPhoneNumber(){
+        String phone = userService.getPhone(1);
+        System.out.println(phone);
+
+    }
 }
