@@ -6,6 +6,7 @@ create table tb_userdetail(
 		userdetail_phone varchar(20),
 		userdetail_deleted integer default 0,
 		userdetail_userid integer,
-		constraint FK1_tb_userdetail foreign key(userdetail_userid) references tb_user(user_id) on update cascade on delete cascade
+		constraint FK1_tb_userdetail foreign key(userdetail_userid) 
+	    references tb_user(user_id) on update cascade on delete cascade
 );
-
+insert into tb_userdetail values(1,'jiale','day.dong99@yahoo.com','0493303279',0,1);

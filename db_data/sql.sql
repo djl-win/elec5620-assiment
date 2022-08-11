@@ -5,4 +5,4 @@ create table tb_user(
 	user_password varchar(30),
 	user_deleted integer default 0
 );
-insert into tb_user(user_username,user_password) values('admin','admin');
+insert into tb_user values(1,'admin','admin',0);
