@@ -18,6 +18,7 @@
     position: absolute;
     top: -10px;
     left: 65px;
+    font-style: italic;
     font-family: Cambria, serif;
     margin-bottom: 20px;
     line-height: 50px;
@@ -25,7 +26,6 @@
     font-size: 20px;
     font-weight: bolder;
     color: white;
-    font-style: italic;
     text-shadow: 10px 2px 4px lightskyblue;
 }
 
@@ -36,7 +36,6 @@
 
 
 .logindata {
-
     position: absolute;
     top: 35%;
     left: 50%;
@@ -50,6 +49,8 @@
     /*border: 2px solid #2a3cad;*/
     color: white;
     padding: 20px;
+    font-style: italic;
+    font-family: Cambria, serif;
 
 }
 
@@ -72,9 +73,17 @@
     position: absolute;
     display: flex;
     bottom: 20px;
-    right: 150px;
+    right: 160px;
     margin-top: 10px;
     text-align: center;
+}
+.el-input__inner {
+    font-style: italic;
+    font-family: Cambria, serif;
+}
+.el-button{
+    font-style: italic;
+    font-family: Cambria, serif;
 }
 
 .inputK{
@@ -257,7 +266,7 @@ body,
 }
 .verification__verify_btn {
     padding: 0;
-    margin: 0;
+    margin: 20px;
     border: none;
     outline: none;
     stroke: none;
@@ -414,9 +423,16 @@ body,
     /*背景模糊*/
     backdrop-filter: blur(500px);
     /*filter: blur(1px);*/
-    /*opacity: 0.99;虚化背景*/
+    /*虚化背景*/
+    opacity: 0.8;
     box-shadow: deeppink 20px 20px 60px 15px;
-    border-radius: 40px 40px 40px;
+    /*边框线*/
+    border: 7px ;
+    border-style: solid solid solid solid;
+    border-color: var(--color-primary);
+    border-radius: 30px 30px 40px;
+
+
     background-color: rgba(0,0,0,.5);
     color: var(--color-secondary);
 }
@@ -437,6 +453,7 @@ body,
 
     background: var(--color-primary);
     color: var(--color-light-gray);
+
 }
 .verification__input {
     background: var(--color-gray);

@@ -21,7 +21,8 @@ new Vue({
                 el5:"",
                 el6:"",
             },
-
+            //登录页面的显示
+            showLoginForm: "block",
 
             //验证码页面的显示
             VisibleVerification: "none",
@@ -90,7 +91,17 @@ new Vue({
             //拼接验证码
             const checkCode = this.VerificationEl.el1 + this.VerificationEl.el2 + this.VerificationEl.el3 + this.VerificationEl.el4 + this.VerificationEl.el5 + this.VerificationEl.el6;
             console.log(checkCode);
-
+            console.log(checkCode.length)
+            if(checkCode.length !== 6){
+                this.VerificationEl.el1="";
+                this.VerificationEl.el2="";
+                this.VerificationEl.el3="";
+                this.VerificationEl.el4="";
+                this.VerificationEl.el5="";
+                this.VerificationEl.el6="";
+                window.alert("Please enter a 6-digit verification code！")
+                return;
+            }
             var _this = this;
             this.$refs[form].validate((valid) => {
                 if (valid) {
@@ -104,6 +115,7 @@ new Vue({
                                 location.href = "/5620/pages/detail.html";
                             } else if (res.data.code === 40010) {
                                 //清空所有信息
+                                _this.showLoginForm = "block";
                                 _this.VisibleVerification = "none";
                                 _this.VerificationEl.el1="";
                                 _this.VerificationEl.el2="";
@@ -146,6 +158,7 @@ new Vue({
                             // console.log(res.data)
                             //响应状态码为40011
                             if (res.data.code === 40011) {
+                                _this.showLoginForm = "none";
                                 _this.VisibleVerification = "block";
                                 console.log(res.data);
                                 // location.href = "/5620/pages/detail.html";
