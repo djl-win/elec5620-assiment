@@ -2,6 +2,7 @@ package com.group3.controller;
 
 import com.group3.domain.SmsMessage;
 import com.group3.domain.User;
+import com.group3.service.MailService;
 import com.group3.service.SmsService;
 import com.group3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UserController {
 
     @Autowired
     private SmsService smsService;
+
+    @Autowired
+    private MailService mailService;
 
     /**
      * login
@@ -79,7 +83,21 @@ public class UserController {
            return new Result(true,Code.SELECT_OK, "Login successfully");
         }
 
-        return new Result(false,Code.SELECT_FAIL, "Wrong code, retry login");
+        return new Result(false,Code.SELECT_FAIL, "Wrong code or Verification code expired, retry login");
+    }
+
+    /**
+     * sign up : sent email verification code
+     */
+    @GetMapping
+    public Result setMailVerificationCode(String emailAddress){
+        Boolean aBoolean = mailService.sentMailCode(emailAddress);
+        if (aBoolean){
+            return new Result(true,Code.SELECT_OK,"code has sent to your email");
+        }
+
+        return new Result(false,Code.SELECT_FAIL, "fail to send to you");
+
     }
 }
 

@@ -33,7 +33,7 @@ public class CreateSmsCode {
      * return null if not have relative value
      */
     @Cacheable(value = "VerifyCodeSpace", key = "#tel")
-    public String getCodeFromCache(String tel){
+    public String getVerificationCodeFromCache(String tel){
 
         return null;
     }

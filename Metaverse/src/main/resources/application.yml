@@ -12,6 +12,12 @@ spring:
   devtools:
     restart:
       enabled: false
+  #change cache to ehcache
+  cache:
+    type: ehcache
+    ehcache:
+      #configuration file name
+      config: classpath:ehcache.xml
 
 mybatis:
   type-aliases-package: com.group3.domain
@@ -45,6 +51,17 @@ spring:
   config:
     activate:
       on-profile: dev
+  #mail configuration
+  mail:
+    host: smtp.mail.yahoo.com
+    username: day.dong99@yahoo.com
+    password: bnrpnhsfqjafoyzq
+    port: 587
+    protocol: smtp
+    properties.mail.smtp:
+      auth: true
+      starttls:
+        enable: true
 ---
 server:
   port: 8080

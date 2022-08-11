@@ -45,7 +45,7 @@ public class ServiceAop {
     private void userPt(){};
 
     /**
-     * subtract empty space
+     * subtract empty space of login info
      */
     @Around("userPt()")
     public Object subtractSpace(ProceedingJoinPoint p) throws Throwable {

@@ -27,9 +27,9 @@ public class SmsServiceImpl implements SmsService {
     public boolean checkCode(SmsMessage smsMessage) {
 
         //get code from cache
-        String codeFromCache = smsCode.getCodeFromCache(smsMessage.getTelephone());
+        String codeFromCache = smsCode.getVerificationCodeFromCache(smsMessage.getTelephone());
 
         //check whether the input code = or not code from cache
-        return codeFromCache.equals(smsMessage.getCode());
+        return smsMessage.getCode().equals(codeFromCache);
     }
 }
