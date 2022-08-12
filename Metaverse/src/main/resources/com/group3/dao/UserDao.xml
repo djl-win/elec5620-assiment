@@ -20,17 +20,43 @@
         <result property="userDetailUserId" column="userdetail_userid"/>
     </resultMap>
 
-
     <select id="signByUser" resultMap="userResultMap">
         select user_id
         from tb_user
         where user_username = #{userUsername} and user_password = #{userPassword} and user_deleted != 1
     </select>
+
     <select id="getPhoneNumber" resultType="java.lang.String">
         select userdetail_phone
         from tb_userdetail
         where userdetail_userid = #{id} and userdetail_deleted != 1;
     </select>
+
+    <select id="checkAnySameValue" resultType="java.lang.String">
+        select user_id
+        from tb_user as a join tb_userDetail as b on a.user_id = b.userdetail_userid
+        <where>
+                <if test="user.userUsername != null and user.userUsername != ''">a.user_username = #{user.userUsername}</if>
+                <if test="userDetail.userDetailEmail != null and userDetail.userDetailEmail != ''">or b.userdetail_email = #{userDetail.userDetailEmail}</if>
+                <if test="userDetail.userDetailPhone != null and userDetail.userDetailPhone != ''">or b.userdetail_phone = #{userDetail.userDetailPhone}</if>
+                and a.user_deleted = 0
+                and b.userdetail_deleted = 0
+        </where>
+
+    </select>
+
+    <insert id="insertNewUser">
+        insert into tb_user(user_username,user_password) values(#{user.userUsername},#{user.userPassword})
+    </insert>
+
+    <select id="selectByUserName" resultType="java.lang.Integer">
+        select user_id from tb_user where user_username = #{user_username}
+    </select>
+
+    <insert id="insertNewUserDetail">
+        insert into tb_userdetail(userdetail_name, userdetail_email, userdetail_phone, userdetail_userid)
+         values(#{userDetail.userDetailName}, #{userDetail.userDetailEmail}, #{userDetail.userDetailPhone}, #{userid})
+    </insert>
 
 
 </mapper>

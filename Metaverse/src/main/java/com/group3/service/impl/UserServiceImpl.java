@@ -2,6 +2,7 @@ package com.group3.service.impl;
 
 import com.group3.dao.UserDao;
 import com.group3.domain.User;
+import com.group3.domain.UserDetail;
 import com.group3.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,5 +25,31 @@ public class UserServiceImpl implements UserService {
 //    @Cacheable(value = "verificationCode", key = "#userid")
     public String getPhone(int userid) {
         return userDao.getPhoneNumber(userid);
+    }
+
+    @Override
+    public boolean register(User user, UserDetail userDetail) {
+
+        //first check is there any same username, phone or email (can split it, but it is too maFanLe!)
+        String[] strings = userDao.checkAnySameValue(user, userDetail);
+
+        //if the length > 0, user exists, return false
+
+        if (strings.length == 0) {
+
+            int userIsOk = userDao.insertNewUser(user);
+
+            //不能正确插入到user表就返回，否则才进行userDetail的插入
+            if (userIsOk != 1 ) {
+
+                return false;
+            } else {
+
+                int userid =  userDao.selectByUserName(user.getUserUsername());
+                return userDao.insertNewUserDetail(userDetail, userid) == 1;
+            }
+
+        }
+        return false;
     }
 }

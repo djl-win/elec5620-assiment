@@ -1,10 +1,13 @@
 package com.group3.service;
 
 import com.group3.domain.User;
+import com.group3.domain.UserDetail;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
 
 @SpringBootTest
 @Transactional
@@ -28,4 +31,20 @@ public class UserServiceTest {
         System.out.println(phone);
 
     }
+
+    @Test
+    /**
+     * test register
+     */
+    public void testRegister(){
+        User user = new User();
+        user.setUserUsername("test");
+        user.setUserPassword("test");
+        UserDetail userDetail = new UserDetail();
+        userDetail.setUserDetailName("test");
+        userDetail.setUserDetailEmail("test");
+        userDetail.setUserDetailPhone("0006369");
+        System.out.println(userService.register(user, userDetail));
+    }
+
 }

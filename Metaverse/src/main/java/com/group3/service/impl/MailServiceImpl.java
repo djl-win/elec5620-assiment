@@ -5,8 +5,7 @@ import com.group3.utils.CreateMailCode;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,16 +33,19 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private CreateMailCode createMailCode;
 
+
     @Override
     //put mail code to cache, 300s expired
+    //这个方法不能被trim，因为aop还没拦截，就把他存进去缓存了，要实现的话，拦截上一届controller，就先不修改了
     @CachePut(value = "MailCodeSpace", key = "#mailAddress")
-    public Boolean sentMailCode(String mailAddress) {
+    public String sentMailCode(String mailAddress) {
+        String mailCodeInCache = null;
         try {
+            mailCodeInCache = createMailCode.CreateMailCode();
 
             //data in mail
             Map<String,String> model = new HashMap<String,String>();
-            model.put("mailCode", createMailCode.CreateMailCode());
-
+            model.put("mailCode", mailCodeInCache);
 
             Template template = configurer.getConfiguration().getTemplate("mail.ftl");
 
@@ -70,12 +71,23 @@ public class MailServiceImpl implements MailService {
 
             javaMailSender.send(mimeMessage);
 
-
         } catch (Exception e) {
 
-            return false;
+            return "false";
         }
 
-        return true;
+        return mailCodeInCache;
+    }
+
+    @Override
+    public boolean checkMailCode(String mailAddress, String mailCode) {
+//        System.out.println(mailCode);
+//
+//        System.out.println(createMailCode.getMailVerificationCodeFromCache(mailAddress));
+
+        //get code from cache
+        String mailVerificationCodeFromCache = createMailCode.getMailVerificationCodeFromCache(mailAddress);
+        //check whether the input code = or not code from cache
+        return mailCode.equals(mailVerificationCodeFromCache);
     }
 }

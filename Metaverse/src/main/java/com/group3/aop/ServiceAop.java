@@ -2,6 +2,8 @@ package com.group3.aop;
 
 
 import com.group3.domain.User;
+import com.group3.domain.UserDetail;
+import org.apache.coyote.http11.filters.IdentityOutputFilter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -41,14 +43,14 @@ public class ServiceAop {
     /**
      * process login info, subtract empty space
      */
-    @Pointcut("execution(* com.group3.service.UserService.*(..))")
+    @Pointcut("execution(* com.group3.service.*Service.*(..))")
     private void userPt(){};
 
     /**
      * subtract empty space of login info
      */
     @Around("userPt()")
-    public Object subtractSpace(ProceedingJoinPoint p) throws Throwable {
+    public Object subtractSpaceOfLogin(ProceedingJoinPoint p) throws Throwable {
         Object[] args = p.getArgs();
 
         for (int i = 0; i < args.length; i++) {
@@ -64,9 +66,49 @@ public class ServiceAop {
 //                System.out.println(user.getUserinfoUsername());
 //                System.out.println(user.getUserinfoPassword());
             }
+
+            //trim userinfo
+            if(args[i].getClass().equals(UserDetail.class)){
+                UserDetail userDetail = (UserDetail)args[i];
+//                System.out.println(userDetail.getUserDetailName());
+//                System.out.println(userDetail.getUserDetailPhone());
+//                System.out.println(userDetail.getUserDetailEmail());
+                //avoid null point
+                if (userDetail.getUserDetailName() != null && userDetail.getUserDetailPhone() != null && userDetail.getUserDetailEmail() != null) {
+                    userDetail.setUserDetailName(userDetail.getUserDetailName().trim());
+                    userDetail.setUserDetailPhone(userDetail.getUserDetailPhone().trim());
+                    userDetail.setUserDetailEmail(userDetail.getUserDetailEmail().trim());
+                }
+//                System.out.println(userDetail.getUserDetailName());
+//                System.out.println(userDetail.getUserDetailPhone());
+//                System.out.println(userDetail.getUserDetailEmail());
+            }
+
         }
 
         return p.proceed(args);
-
     }
+//    这个方法不能被trim，因为aop还没拦截，就把他存进去缓存了，要实现的话，拦截上一届controller，就先不修改了
+//    /**
+//     * process login info, subtract empty space
+//     */
+//    @Pointcut("execution(* com.group3.service.MailService.sentMailCode(..))")
+//    private void emailPt(){};
+//
+//    /**
+//     * subtract empty space of login info
+//     */
+//    @Around("emailPt()")
+//    public Object subtractSpaceOfEmail(ProceedingJoinPoint p) throws Throwable {
+//        Object[] args = p.getArgs();
+//        System.out.println(args[0]);
+//        for (int i = 0; i < args.length; i++) {
+//            if(args[i].getClass().equals(String.class)){
+//                args[i] = args[i].toString().trim();
+//            }
+//        }
+//        System.out.println(args[0]);
+//        return p.proceed(args);
+//    }
+
 }

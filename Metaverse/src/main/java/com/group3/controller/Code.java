@@ -11,6 +11,7 @@ public class Code {
     public static final Integer SELECT_OK = 40011;
     public static final Integer SELECT_FAIL = 40010;
     public static final Integer LOGIN_OK = 50011;
+    public static final Integer CODE_FAIL = 60010;
 
     public static final Integer SYSTEM_ERROR = 55555;
     public static final Integer BUSINESS_ERROR = 66666;

@@ -1,8 +1,8 @@
 package com.group3.controller;
 
+import com.group3.domain.RegisterInfo;
 import com.group3.domain.SmsMessage;
 import com.group3.domain.User;
-import com.group3.domain.UserDetail;
 import com.group3.service.MailService;
 import com.group3.service.SmsService;
 import com.group3.service.UserService;
@@ -92,8 +92,8 @@ public class UserController {
      */
     @GetMapping
     public Result setMailVerificationCode(String emailAddress){
-        Boolean aBoolean = mailService.sentMailCode(emailAddress);
-        if (aBoolean){
+        String codeMail = mailService.sentMailCode(emailAddress);
+        if (codeMail != null){
             return new Result(true,Code.SELECT_OK,"code has sent to your email");
         }
 
@@ -106,8 +106,27 @@ public class UserController {
      *
      */
     @PutMapping
-    public Result signUp(@RequestBody User user){
-        return null;
+    public Result signUp(@RequestBody RegisterInfo registerInfo){
+
+        String email = registerInfo.getUserDetail().getUserDetailEmail();
+
+        String checkCode = registerInfo.getMailCode();
+
+        //first check the mail code
+        boolean check = mailService.checkMailCode(email,checkCode);
+
+        //正确则进行下一步操作, wrong code return 60010
+        if(!check){
+            return new Result(false,Code.CODE_FAIL,"Please check you mail code!");
+        }
+
+        boolean registerOk =  userService.register(registerInfo.getUser(),registerInfo.getUserDetail());
+
+        //if registerOK fine, congratulations. if not same username or same phone or same email
+        if(registerOk){
+            return new Result(true, Code.INSERT_OK, "Congratulations! You have become our member.");
+        }
+        return new Result(false,Code.INSERT_FAIL, "Unluckily, you used the same username or email or phone with others, retry again");
     }
 }
 

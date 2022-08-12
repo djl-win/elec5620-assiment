@@ -12,7 +12,9 @@ public class MailServiceTest {
 
     @Test
     public void testSentMailCode(){
+
         System.out.println(mailService.sentMailCode("395763745@qq.com"));
+
     }
 
 
