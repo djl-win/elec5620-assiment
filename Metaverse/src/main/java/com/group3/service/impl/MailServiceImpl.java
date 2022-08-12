@@ -63,8 +63,9 @@ public class MailServiceImpl implements MailService {
 
 //            helper.addAttachment("Img4_2x.jpg", new File(this.getClass().getResource("Img4_2x.jpg").getPath()));
 //            helper.addAttachment("footer.png", new File(this.getClass().getResource("footer.png").getPath()));
-            helper.addAttachment("Img4_2x.jpg", new File("D:\\USYD-2022-S2-Assignment\\ELEC_5620_ASSIGNMENT\\Metaverse\\src\\main\\resources\\static\\asset\\Img4_2x.jpg"));
-            helper.addAttachment("footer.png", new File("D:\\USYD-2022-S2-Assignment\\ELEC_5620_ASSIGNMENT\\Metaverse\\src\\main\\resources\\static\\asset\\footer.png"));
+//            helper.addAttachment("Img4_2x.jpg", new ClassPathResource("Img4_2x.jpg"));
+//            helper.addAttachment("footer.png", new ClassPathResource("footer.png"));
+
             helper.setText(content,true);
 
             javaMailSender.send(mimeMessage);

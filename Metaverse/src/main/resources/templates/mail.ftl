@@ -175,7 +175,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0" class="image_block block-3" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
                                         <tr>
                                             <td class="pad" style="padding-left:40px;padding-right:40px;width:100%;">
-                                                <div align="center" class="alignment" style="line-height:10px"><img alt="I'm an image" class="big" src="cid:Img4_2x.jpg" style="display: block; height: auto; border: 0; width: 352px; max-width: 100%;" title="I'm an image" width="352"/></div>
+                                                <div align="center" class="alignment" style="line-height:10px"><img alt="I'm an image" class="big" src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/1361/Img4_2x.jpg" style="display: block; height: auto; border: 0; width: 352px; max-width: 100%;" title="I'm an image" width="352"/></div>
                                             </td>
                                         </tr>
                                     </table>
@@ -379,7 +379,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0" class="image_block block-2" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;" width="100%">
                                         <tr>
                                             <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                                                <div align="center" class="alignment" style="line-height:10px"><img alt="I'm an image" class="big" src="cid:footer.png" style="display: block; height: auto; border: 0; width: 640px; max-width: 100%;" title="I'm an image" width="640"/></div>
+                                                <div align="center" class="alignment" style="line-height:10px"><img alt="I'm an image" class="big" src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/1361/footer.png" style="display: block; height: auto; border: 0; width: 640px; max-width: 100%;" title="I'm an image" width="640"/></div>
                                             </td>
                                         </tr>
                                     </table>
