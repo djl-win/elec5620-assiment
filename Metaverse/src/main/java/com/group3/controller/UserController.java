@@ -2,6 +2,7 @@ package com.group3.controller;
 
 import com.group3.domain.SmsMessage;
 import com.group3.domain.User;
+import com.group3.domain.UserDetail;
 import com.group3.service.MailService;
 import com.group3.service.SmsService;
 import com.group3.service.UserService;
@@ -98,6 +99,15 @@ public class UserController {
 
         return new Result(false,Code.SELECT_FAIL, "fail to send to you");
 
+    }
+
+    /**
+     * register the user, and check the mail code
+     *
+     */
+    @PutMapping
+    public Result signUp(@RequestBody User user){
+        return null;
     }
 }
 
