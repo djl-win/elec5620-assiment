@@ -62,6 +62,9 @@ spring:
       auth: true
       starttls:
         enable: true
+  #mail template location
+  freemarker:
+    template-loader-path: classpath:/templates
 ---
 server:
   port: 8080
