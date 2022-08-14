@@ -21,7 +21,7 @@ public class ServiceAop {
     private void servicePt(){};
 
     /**
-     * record the exection time
+     * record the execution time
      */
     @Around("servicePt()")
     public Object timeRecord(ProceedingJoinPoint p) throws Throwable {
