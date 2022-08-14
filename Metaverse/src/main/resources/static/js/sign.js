@@ -84,9 +84,7 @@ new Vue({
 
     mounted() {
         //get from url of the register form availability
-        console.log(location.href);
         var showRegister = location.href.split("=");
-        console.log(showRegister[1]);
         this.dialogVisible = Boolean(showRegister[1]);
 
         //挂载完成式，加载用户名密码
@@ -198,12 +196,17 @@ new Vue({
                         url: "/5620/users",
                         data: _this.loginForm
                     }).then(function (res) {
-                            // console.log(res.data)
                             //响应状态码为40011
                             if (res.data.code === 40011) {
                                 _this.showLoginForm = "none";
                                 _this.VisibleVerification = "block";
-                                console.log(res.data);
+
+                                _this.$message({
+                                    message: "(Simulate phone verification code) You phone verification code is " + res.data.data,
+                                    type: "success",
+                                    showClose: true,
+                                })
+
                                 // location.href = "/5620/pages/detail.html";
                             } else if (res.data.code === 40010) {
                                 //清空所有信息
