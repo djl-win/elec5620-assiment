@@ -91,25 +91,50 @@
                             show-password
                     ></el-input>
                 </el-form-item>
-                <el-form-item prop="verificationCode">
+                <el-form-item prop="userDetailName">
+                    Full name:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <el-input
+                            id="registerText4"
+                            style="width:300px"
+                            v-model="registerForm.userDetailName"
+                            show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="userDetailEmail">
+                    Email:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <el-input
+                            id="registerText5"
+                            style="width:300px"
+                            v-model="registerForm.userDetailEmail"
+                            show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="userDetailPhone">
+                    Phone:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    <el-input
+                            id="registerText6"
+                            style="width:300px"
+                            v-model="registerForm.userDetailPhone"
+                            show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item prop="mailCode">
                     <div class = "codecss">
                         <div>
                             <span>checked code:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                         </div>
                         <div>
                             <el-input
-                                    id="registerText4"
+                                    id="registerText7"
                                     style="width:100px"
-                                    maxlength="4"
-                                    v-model="registerForm.verificationCode"
+                                    maxlength="6"
+                                    v-model="registerForm.mailCode"
                             ></el-input>
                         </div>
                         <div>
-                            <el-image
-                                    style="width: 100px; height: 40px"
-                                    :src="codeUrl"
-                            ></el-image>
-                            <el-link type="danger" @click="changeImg">看不清？</el-link>
+                            <el-form-item>
+                            <el-button @click="sendEmail">Send Email</el-button>
+                            </el-form-item>
                         </div>
                     </div>
 

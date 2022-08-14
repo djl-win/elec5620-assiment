@@ -1,8 +1,11 @@
 package com.group3.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.group3.domain.RegisterInfo;
 import com.group3.domain.SmsMessage;
 import com.group3.domain.User;
+import com.group3.domain.UserDetail;
 import com.group3.service.MailService;
 import com.group3.service.SmsService;
 import com.group3.service.UserService;
@@ -92,6 +95,7 @@ public class UserController {
      */
     @GetMapping
     public Result setMailVerificationCode(String emailAddress){
+
         String codeMail = mailService.sentMailCode(emailAddress);
         if (codeMail != null){
             return new Result(true,Code.SELECT_OK,"code has sent to your email");
@@ -106,7 +110,27 @@ public class UserController {
      *
      */
     @PutMapping
-    public Result signUp(@RequestBody RegisterInfo registerInfo){
+    public Result signUp(@RequestBody String input){
+
+
+        //使用阿里巴巴 的 fastjson 获取mailcode
+        //常用api https://blog.csdn.net/weixin_41251135/article/details/110231280
+        JSONObject jsonObject = JSONObject.parseObject(input);
+
+        String mailCode = jsonObject.getString("mailCode");
+
+        User user = JSON.parseObject(input, User.class);
+
+        UserDetail userDetail = JSON.parseObject(input, UserDetail.class);
+
+        RegisterInfo registerInfo = new RegisterInfo();
+
+        //封装mail code
+        registerInfo.setMailCode(mailCode);
+        //封装user
+        registerInfo.setUser(user);
+        //封装user detail
+        registerInfo.setUserDetail(userDetail);
 
         String email = registerInfo.getUserDetail().getUserDetailEmail();
 

@@ -44,7 +44,10 @@ new Vue({
                 userPassword: "",
                 userUsername: "",
                 checkPassword: "",
-                verificationCode: ""
+                userDetailName: "",
+                useDetailEmail: "",
+                userDetailPhone: "",
+                mailCode: ""
             },
 
             checked: false,
@@ -63,8 +66,17 @@ new Vue({
                     {required: true, message: "Please enter your password again", trigger: "blur"},
                     {validator: validatePass, trigger: "blur", required: true}
                 ],
-                verificationCode: [
-                    {required: true, message: "Please enter checked code", trigger: "blur"},
+                userDetailName: [
+                    {required: true, message: "Please enter your full name", trigger: "blur"}
+                ],
+                userDetailEmail: [
+                    {required: true, message: "Please enter your email", trigger: "blur"}
+                ],
+                userDetailPhone: [
+                    {required: true, message: "Please enter your phone number", trigger: "blur"}
+                ],
+                mailCode: [
+                    {required: true, message: "Please enter mail code", trigger: "blur"},
                 ]
             },
         };
@@ -81,10 +93,36 @@ new Vue({
 
     methods: {
 
-        //改变验证码，（还没写）
-        changeImg() {
-            var milliseconds = new Date().getMilliseconds();
-            this.codeUrl = '#?'+milliseconds;
+        //Sent email  code
+        sendEmail() {
+            var _this = this;
+            axios({
+                method: "get",
+                url: "/5620/users/?emailAddress=" + _this.registerForm.userDetailEmail
+            }).then(function (res) {
+                    // console.log(res.data)
+                    //响应状态码为40011
+                    if (res.data.code === 40011) {
+                        _this.$message({
+                            message: res.data.msg,
+                            type: "success",
+                            showClose: true,
+                        })
+                    } else if (res.data.code === 40010) {
+                        _this.$message({
+                            message: res.data.msg,
+                            type: "error",
+                            showClose: true,
+                        })
+                    }
+                }
+            ).catch((err) => {
+                _this.$message({
+                    message: "Fail to sent code to your email",
+                    type: "error",
+                    showClose: true,
+                });
+            });
         },
         //检验验证码
         submitVerificationCode(form){
@@ -186,7 +224,7 @@ new Vue({
             });
         },
 
-        //提交注册表单
+        //record the info
         remember(data) {
             this.checked = data
             if (this.checked) {
@@ -211,16 +249,16 @@ new Vue({
             this.$refs[form].validate((valid) => {
                 if (valid) {
                     axios({
-                        method: "post",
-                        url: "http://localhost:8080/online/userServlet/register",
+                        method: "put",
+                        url: "/5620/users",
                         data: _this.registerForm
                     }).then(function (res) {
                             //响应状态码为200
-                            if (res.data === "success") {
+                            if (res.data.code === 10011) {
                                 // setToken(res.data.token);
                                 // localStorage.setItem("USERNAME", res.data.username);
                                 _this.$message({
-                                    message: "注册成功啦",
+                                    message: res.data.msg,
                                     type: "success",
                                     showClose: true,
                                 })
@@ -230,32 +268,32 @@ new Vue({
                                 _this.registerForm.userUsername = "";
                                 _this.registerForm.userPassword = "";
                                 _this.registerForm.checkPassword = "";
-                                //改变图片
-                                _this.changeImg();
+                                _this.registerForm.userDetailName = "";
+                                _this.registerForm.userDetailEmail = "";
+                                _this.registerForm.userDetailPhone = "";
+                                _this.registerForm.mailCode = "";
+
+                            } else if (res.data.code === 60010) {
+
                                 //清空验证码
-                                _this.registerForm.verificationCode = "";
-                                // this.$router.replace("/");
-                            } else if (res.data === "errorCode") {
-                                //改变图片
-                                _this.changeImg();
-                                //清空验证码
-                                _this.registerForm.verificationCode = "";
+                                _this.registerForm.mailCode = "";
                                 _this.$message({
-                                    message: "验证码错误，请重新输入",
+                                    message: res.data.msg,
                                     type: "error",
                                     showClose: true,
                                 })
-                            }else if (res.data === "errorUser") {
+                            }else if (res.data.code === 10010) {
                                 //清空所有信息
                                 _this.registerForm.userUsername = "";
                                 _this.registerForm.userPassword = "";
                                 _this.registerForm.checkPassword = "";
-                                //改变图片
-                                _this.changeImg();
-                                //清空验证码
-                                _this.registerForm.verificationCode = "";
+                                _this.registerForm.userDetailName = "";
+                                _this.registerForm.userDetailEmail = "";
+                                _this.registerForm.userDetailPhone = "";
+                                _this.registerForm.mailCode = "";
+
                                 _this.$message({
-                                    message: "用户名已存在，请重新注册",
+                                    message: res.data.msg,
                                     type: "error",
                                     showClose: true,
                                 })
@@ -266,12 +304,13 @@ new Vue({
                         _this.registerForm.userUsername = "";
                         _this.registerForm.userPassword = "";
                         _this.registerForm.checkPassword = "";
-                        //改变图片
-                        _this.changeImg();
-                        //清空验证码
-                        _this.registerForm.verificationCode = "";
+                        _this.registerForm.userDetailName = "";
+                        _this.registerForm.userDetailEmail = "";
+                        _this.registerForm.userDetailPhone = "";
+                        _this.registerForm.mailCode = "";
+
                         _this.$message({
-                            message: "注册失败",
+                            message: "Fail to sign up",
                             type: "error",
                             showClose: true,
                         });
