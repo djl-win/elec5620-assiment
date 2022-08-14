@@ -1,3 +1,16 @@
+/**
+ * 尝试修复返回之后不清空input，造成类似welcome welcome to metaverse的情框
+ * 但刷新之后input被清空且不再输出welcome to metaverse
+ */
+//jquery实现方法
+$(window).on('pageshow', function (event) {
+  $("#input").val("")
+})
+//js原生实现方法
+// window.onpageshow = function (event) {
+//   $("#input").val("")
+// }
+
 const selectSVG = id => {
   const el = document.getElementById(id);
   return new SVGElement(el);
