@@ -83,6 +83,11 @@ new Vue({
     },
 
     mounted() {
+        //get from url of the register form availability
+        console.log(location.href);
+        var showRegister = location.href.split("=");
+        console.log(showRegister[1]);
+        this.dialogVisible = Boolean(showRegister[1]);
 
         //挂载完成式，加载用户名密码
         if (localStorage.getItem("news")) {
