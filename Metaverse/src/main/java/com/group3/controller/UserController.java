@@ -83,8 +83,11 @@ public class UserController {
 
         //if true code, put user to session to release interceptor
         if(flag){
-           session.setAttribute("user", "temporary user, if have the chance, correct this information to user");
-           return new Result(true,Code.SELECT_OK, "Login successfully");
+            //登录后存入session，可用缓存优化
+            User user = userService.getUserByPhone(userPhone);
+            session.setAttribute("user", user);
+
+            return new Result(true,Code.SELECT_OK, "Login successfully");
         }
 
         return new Result(false,Code.SELECT_FAIL, "Wrong code or Verification code expired, retry login");

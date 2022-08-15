@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public User getUserByPhone(String userPhone) {
+        return userDao.selectUserByPhone(userPhone);
+    }
 }

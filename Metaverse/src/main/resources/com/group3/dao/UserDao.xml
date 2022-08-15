@@ -53,10 +53,16 @@
         select user_id from tb_user where user_username = #{user_username}
     </select>
 
+
     <insert id="insertNewUserDetail">
         insert into tb_userdetail(userdetail_name, userdetail_email, userdetail_phone, userdetail_userid)
          values(#{userDetail.userDetailName}, #{userDetail.userDetailEmail}, #{userDetail.userDetailPhone}, #{userid})
     </insert>
 
+    <select id="selectUserByPhone" resultMap="userResultMap">
+        select user_id,user_username
+        from tb_userdetail as a join tb_user as b on a.userdetail_userid = b.user_id
+        where a.userdetail_phone = #{phone} and a.userdetail_deleted != 1 and b.user_deleted != 1
+    </select>
 
 </mapper>

@@ -12,4 +12,6 @@ public interface UserService {
     String getPhone(int userid);
 
     boolean register(User user, UserDetail userDetail);
+
+    User getUserByPhone(String userPhone);
 }

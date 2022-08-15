@@ -4,6 +4,7 @@ import com.group3.domain.User;
 import com.group3.domain.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserDao {
@@ -25,7 +26,7 @@ public interface UserDao {
     /**
      * 注册功能
      * @param user
-     * @param userDetail
+     * @param
      * @return
      */
     int insertNewUser(@Param("user") User user);
@@ -42,4 +43,11 @@ public interface UserDao {
      * @return
      */
     int insertNewUserDetail(@Param("userDetail") UserDetail userDetail, @Param("userid") int userid);
+
+    /**
+     *
+     * @param userPhone phonenumber
+     * @return user objection
+     */
+    User selectUserByPhone(@Param("phone")String userPhone);
 }

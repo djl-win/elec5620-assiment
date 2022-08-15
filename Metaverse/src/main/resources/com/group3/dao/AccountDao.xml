@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.AccountDao">
+
+    <resultMap id="accountResultMap" type="Account">
+        <id property="accountId" column="account_id"/>
+        <result property="accountPublicKey" column="account_publickey"/>
+        <result property="accountAvatar" column="account_avatar"/>
+        <result property="accountBalance" column="account_balance"/>
+        <result property="accountDeleted" column="account_deleted"/>
+        <result property="accountUserId" column="account_userid"/>
+    </resultMap>
+
+    <select id="selectTest" resultMap="accountResultMap">
+        select *
+        from tb_account
+        where account_deleted != 1
+    </select>
+
+
+</mapper>

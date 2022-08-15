@@ -47,4 +47,12 @@ public class UserServiceTest {
         System.out.println(userService.register(user, userDetail));
     }
 
+    /**
+     * test select by phone
+     */
+    @Test
+    public void testGetUserByPhone(){
+        User userByPhone = userService.getUserByPhone("0493303279");
+        System.out.println(userByPhone.toString());
+    }
 }

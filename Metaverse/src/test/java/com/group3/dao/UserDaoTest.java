@@ -40,6 +40,12 @@ public class UserDaoTest {
         userDetail.setUserDetailEmail("day.dong99@yahoo.com");
         userDetail.setUserDetailPhone("15542449708a");
         System.out.println(Arrays.toString(userDao.checkAnySameValue(user, userDetail)));
+    }
+
+    @Test
+    public void testSelectUserByPhone(){
+        User user = userDao.selectUserByPhone("0493303279");
+        System.out.println(user.toString());
 
     }
 }
