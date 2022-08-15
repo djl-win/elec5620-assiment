@@ -3,6 +3,8 @@ jdk 1.8
 
 pgsql
 
+mvn 跳过测试
+
 port 8080
 
 context-path: /5620
