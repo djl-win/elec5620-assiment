@@ -22,7 +22,7 @@ public class UserLoginVerifyInterceptor implements HandlerInterceptor {
             response.sendRedirect(request.getContextPath()+"/pages/index.html");
             return false;
         }
-
+        System.out.println(user.toString());
         return true;
 
     }
