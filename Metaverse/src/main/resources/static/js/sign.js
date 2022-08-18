@@ -153,7 +153,8 @@ new Vue({
                             console.log(res.data)
                             //响应状态码为40011
                             if (res.data.code === 40011) {
-                                location.href = "/5620/pages/detail.html";
+                                //因为整合比较麻烦，spring需跨越，index页不同，跳转有些麻烦，在react中跨域即可，后期在调整！！
+                                location.href = "http://localhost:3000/5620/pages/index.html?username=" + res.data.data;
                             } else if (res.data.code === 40010) {
                                 //清空所有信息
                                 _this.showLoginForm = "block";

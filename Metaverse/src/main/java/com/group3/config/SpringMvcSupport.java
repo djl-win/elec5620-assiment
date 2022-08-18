@@ -16,6 +16,6 @@ public class SpringMvcSupport implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userLoginVerifyInterceptor)
                 .addPathPatterns("/pages/**")
-                .excludePathPatterns("/pages/index.html","/pages/sign.html");
+                .excludePathPatterns("/pages/mIndex.html","/pages/sign.html");
     }
 }

@@ -46,7 +46,6 @@ server:
   port: 8080
   servlet:
     context-path: /5620
-
 spring:
   config:
     activate:

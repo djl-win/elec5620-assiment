@@ -19,5 +19,11 @@
         where account_deleted != 1
     </select>
 
+    <select id="fetchByUsername" resultMap="accountResultMap">
+        select account_id,account_publickey,account_avatar, account_balance, account_deleted,account_userid
+        from tb_account as a join tb_user as u on a.account_userid = u.user_id
+        where user_username = #{username} and account_deleted = 0 and user_deleted = 0
+    </select>
+
 
 </mapper>

@@ -87,8 +87,10 @@ public class UserController {
             User user = userService.getUserByPhone(userPhone);
             session.setAttribute("user", user);
 
-            return new Result(true,Code.SELECT_OK, "Login successfully");
+//            return new Result(true,Code.SELECT_OK, "Login successfully");
+            return new Result(user.getUserUsername(),Code.SELECT_OK, "Login successfully");
         }
+
 
         return new Result(false,Code.SELECT_FAIL, "Wrong code or Verification code expired, retry login");
     }

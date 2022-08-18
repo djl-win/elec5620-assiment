@@ -19,7 +19,7 @@ public class UserLoginVerifyInterceptor implements HandlerInterceptor {
         Object user = session.getAttribute("user");
 
         if(user == null){
-            response.sendRedirect(request.getContextPath()+"/pages/index.html");
+            response.sendRedirect(request.getContextPath()+"/pages/mIndex.html");
             return false;
         }
         System.out.println(user.toString());

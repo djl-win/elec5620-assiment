@@ -9,7 +9,9 @@ port 8080
 
 context-path: /5620
 
-http://localhost:8080/5620/pages/index.html
+http://localhost:8080/5620/pages/mIndex.html
+
+修改代理服务地址3000，连接react
 
 **待办：**
 - username need unique, remember to correct -- ok

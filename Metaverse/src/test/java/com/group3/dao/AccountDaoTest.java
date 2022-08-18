@@ -21,4 +21,12 @@ public class AccountDaoTest {
         System.out.println(account.getAccountDeleted());
         System.out.println(account.getAccountUserId());
     }
+
+    /**
+     * 测试用户是否已经创建钱包？
+     */
+    @Test
+    public void testFetchByUsername(){
+        System.out.println(accountDao.fetchByUsername("test01"));
+    }
 }
