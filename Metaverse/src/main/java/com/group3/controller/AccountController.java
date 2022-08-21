@@ -3,10 +3,7 @@ package com.group3.controller;
 import com.group3.domain.Account;
 import com.group3.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.group3.controller.Code;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,5 +28,20 @@ public class AccountController {
         String msg = account != null ? "You have already created wallet, next enter the wallet interface" : "Next to go to create a new Wallet";
 
         return new Result(account,code,msg);
+    }
+
+    /**
+     * 根据前端传过来的用户名，帮助用户自动创建钱包
+     * @param username token中的username
+     * @return 用户的私钥
+     */
+    @PutMapping("{username}")
+    public Result createWallet(@PathVariable String username){
+
+        String priKey = accountService.createWalletByUsername(username);
+        int code = priKey != null ? Code.UPDATE_OK : Code.UPDATE_FAIL;
+        String msg = priKey != null ? "You have successfully created wallet, this is your private key" : "Fail to create";
+
+        return new Result(priKey,code,msg);
     }
 }

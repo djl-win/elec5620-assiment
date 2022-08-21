@@ -155,6 +155,7 @@ new Vue({
                             if (res.data.code === 40011) {
                                 //因为整合比较麻烦，spring需跨越，index页不同，跳转有些麻烦，在react中跨域即可，后期在调整！！
                                 location.href = "http://localhost:3000/5620/pages/index.html?username=" + res.data.data;
+                                // location.href = "http://localhost:3000/5620/pages/index.html";
                             } else if (res.data.code === 40010) {
                                 //清空所有信息
                                 _this.showLoginForm = "block";

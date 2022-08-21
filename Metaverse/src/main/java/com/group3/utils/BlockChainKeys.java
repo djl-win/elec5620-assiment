@@ -36,7 +36,7 @@ public class BlockChainKeys {
 
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM);
 
-        keyPairGenerator.initialize(1024);
+        keyPairGenerator.initialize(512);
 
         //通过生成器生成密钥
         KeyPair keyPair = keyPairGenerator.generateKeyPair();

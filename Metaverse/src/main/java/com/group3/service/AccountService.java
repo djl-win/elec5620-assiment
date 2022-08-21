@@ -12,4 +12,11 @@ public interface AccountService {
      * @return 返回用户信息，空则null
      */
     Account selectAccountByUsername(String username);
+
+    /**
+     * 根据控制层传过来的用户名，帮助用户创建钱包
+     * @param username 用户名
+     * @return 用户私钥
+     */
+    String createWalletByUsername(String username);
 }

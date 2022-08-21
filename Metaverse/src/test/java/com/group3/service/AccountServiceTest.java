@@ -4,8 +4,10 @@ import com.group3.domain.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@Transactional
 public class AccountServiceTest {
 
     @Autowired
@@ -16,8 +18,13 @@ public class AccountServiceTest {
      */
     @Test
     public void testSelectAccountByUsername(){
-        Account admin = accountService.selectAccountByUsername("test01");
+        Account admin = accountService.selectAccountByUsername("admin");
         System.out.println(admin);
+    }
 
+    @Test
+    public void testCreateWalletByUsername(){
+        String admin = accountService.createWalletByUsername("test01");
+        System.out.println(admin);
     }
 }

@@ -20,4 +20,6 @@ public interface AccountDao {
      * @param username
      */
     Account fetchByUsername(@Param("username") String username);
+
+    int insertWalletByUsername(@Param("account") Account account);
 }

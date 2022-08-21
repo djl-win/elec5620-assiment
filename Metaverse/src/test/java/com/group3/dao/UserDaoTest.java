@@ -46,6 +46,10 @@ public class UserDaoTest {
     public void testSelectUserByPhone(){
         User user = userDao.selectUserByPhone("0493303279");
         System.out.println(user.toString());
+    }
 
+    @Test
+    public void testSelectByUsername(){
+        System.out.println(userDao.selectByUserName("test01"));
     }
 }

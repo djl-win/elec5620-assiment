@@ -25,5 +25,11 @@
         where user_username = #{username} and account_deleted = 0 and user_deleted = 0
     </select>
 
+    <insert id="insertWalletByUsername">
+        INSERT INTO tb_account(
+            account_publickey, account_avatar, account_balance, account_deleted, account_userid)
+        VALUES (#{account.accountPublicKey}, #{account.accountAvatar}, #{account.accountBalance}, #{account.accountDeleted}, #{account.accountUserId});
+    </insert>
+
 
 </mapper>
