@@ -31,5 +31,11 @@
         VALUES (#{account.accountPublicKey}, #{account.accountAvatar}, #{account.accountBalance}, #{account.accountDeleted}, #{account.accountUserId});
     </insert>
 
+    <update id="updateBalanceByAvatar">
+        UPDATE tb_account
+        SET  account_balance = account_balance + #{amount}
+        WHERE account_avatar=#{username} and account_deleted=0;
+    </update>
+
 
 </mapper>

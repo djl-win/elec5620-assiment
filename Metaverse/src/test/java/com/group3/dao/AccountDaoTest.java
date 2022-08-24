@@ -46,4 +46,14 @@ public class AccountDaoTest {
         int flag = accountDao.insertWalletByUsername(account);
         System.out.println(flag);
     }
+
+    /**
+     * 测试是否可以充值成功
+     */
+    @Test
+    public void testUpdateBalanceByAvatar(){
+        int admin = accountDao.updateBalanceByAvatar(15.2, "admin");
+        System.out.println(admin);
+
+    }
 }

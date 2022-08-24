@@ -1,16 +1,20 @@
 package com.group3.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.group3.domain.Account;
+import com.group3.domain.Log;
+import com.group3.domain.WalletPageInfo;
 import com.group3.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.group3.controller.Code;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/wallets")
 public class AccountController {
+    //regx
+    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
     @Autowired
     private AccountService accountService;
@@ -23,11 +27,11 @@ public class AccountController {
     @GetMapping("{username}")
     public Result checkExistAccount(@PathVariable String username){
 
-        Account account = accountService.selectAccountByUsername(username);
-        int code = account != null ? Code.SELECT_OK : Code.SELECT_FAIL;
-        String msg = account != null ? "You have already created wallet, next enter the wallet interface" : "Next to go to create a new Wallet";
+        WalletPageInfo<Log> logWalletPageInfo = accountService.selectAccountByUsername(username);
+        int code = logWalletPageInfo != null ? Code.SELECT_OK : Code.SELECT_FAIL;
+        String msg = logWalletPageInfo != null ? "Search success" : "Search error";
 
-        return new Result(account,code,msg);
+        return new Result(logWalletPageInfo,code,msg);
     }
 
     /**
@@ -43,5 +47,44 @@ public class AccountController {
         String msg = priKey != null ? "You have successfully created wallet, this is your private key" : "Fail to create";
 
         return new Result(priKey,code,msg);
+    }
+
+    /**
+     * 接受前端传入的amount金额，帮助用户进行充值操作
+     * @param input (前端传入的充值数量，和用户的用户名)
+     * @return 成功与否
+     */
+    @PutMapping
+    public Result increaseBalance(@RequestBody String input){
+
+        JSONObject jsonObject = JSONObject.parseObject(input);
+
+        //这里可以判断字符串是不是由数字组成的，不是的话就直接返回错误代码，
+        String originalAmount = jsonObject.getString("amount");
+
+        //amount表中的avatar是和username一样的，直接匹配就行
+        String username = jsonObject.getString("username");
+
+        boolean matches = pattern.matcher(originalAmount).matches();
+        if(matches){
+
+            //if match number, then to charge operation
+            double amount = Double.parseDouble(originalAmount);
+
+            //judge success or not
+            boolean flag = accountService.chargeAccount(amount, username);
+
+            //code
+            int code = flag ? Code.UPDATE_OK: Code.UPDATE_FAIL;
+
+            //msg
+            String msg = flag ? "Congratulations, you have successfully charged" : "Fail to charge";
+
+            return new Result(flag,code,msg);
+        }else {
+            return new Result(null,Code.UPDATE_FAIL,"wrong input");
+        }
+
+
     }
 }

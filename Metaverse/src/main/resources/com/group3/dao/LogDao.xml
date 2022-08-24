@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.LogDao">
+
+    <resultMap id="logResultMap" type="Log">
+        <id property="logId" column="log_id"/>
+        <result property="logPubKeyUserA" column="log_pubkeyusera"/>
+        <result property="logPubKeyUserA" column="log_pubkeyuserb"/>
+        <result property="logType" column="log_type"/>
+        <result property="logNftId" column="log_nftid"/>
+        <result property="logPrice" column="log_price"/>
+        <result property="logDate" column="log_date"/>
+        <result property="logDescription" column="log_description"/>
+        <result property="logStatus" column="log_status"/>
+    </resultMap>
+
+    <insert id="chargeOperation">
+        INSERT INTO tb_log(
+            log_pubkeyusera, log_type,log_price, log_date, log_description, log_status)
+        VALUES (#{log.logPubKeyUserA}, #{log.logType}, #{log.logPrice}, now(), #{log.logDescription}, #{log.logStatus});
+    </insert>
+    <select id="fetchChargeInfoListByPubKey" resultMap="logResultMap">
+        SELECT log_id, log_pubkeyusera, log_pubkeyuserb, log_type, log_nftid, log_price, log_date, log_description, log_status
+        FROM tb_log
+        WHERE log_pubkeyusera = #{pubKey} and log_type = 1
+        ORDER BY log_id desc
+    </select>
+
+
+</mapper>

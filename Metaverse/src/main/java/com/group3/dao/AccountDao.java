@@ -22,4 +22,13 @@ public interface AccountDao {
     Account fetchByUsername(@Param("username") String username);
 
     int insertWalletByUsername(@Param("account") Account account);
+
+
+    /**
+     * 为用户进行充值操作
+     * @param amount 要充值的金额
+     * @param username 用户的avatar,account表中的avatar就是username
+     * @return 影响行数
+     */
+    int updateBalanceByAvatar(@Param("amount") double amount, @Param("username") String username);
 }
