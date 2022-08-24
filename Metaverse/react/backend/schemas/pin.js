@@ -1,5 +1,5 @@
 export default {
-    mame: 'pin',
+    name: 'pin',
     title: 'Pin',
     type: 'document',
     fields: [
