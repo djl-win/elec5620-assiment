@@ -11,7 +11,7 @@ export default {
         {
             name: 'image',
             tile: 'Image',
-            type: 'image'
+            type: 'string'
         }
     ]
 }
