@@ -23,3 +23,7 @@ http://localhost:8080/5620/pages/mIndex.html
 - 注册校验 --ok
 - 登录表单trim --ok 但是发送邮件的方法中mail不能被trim，因为aop还没拦截，就把他存进去缓存了，要实现的话，拦截上一届controller，就先不修改了
 - front-end register function --ok
+
+
+-----
+account和log表添加级联删除 not ok
