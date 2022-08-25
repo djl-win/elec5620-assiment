@@ -1,7 +1,7 @@
 package com.group3.exception;
 
-import com.group3.controller.Code;
-import com.group3.controller.Result;
+import com.group3.common.Code;
+import com.group3.common.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

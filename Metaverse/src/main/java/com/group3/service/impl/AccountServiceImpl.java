@@ -4,7 +4,7 @@ import com.group3.dao.AccountDao;
 import com.group3.dao.UserDao;
 import com.group3.domain.Account;
 import com.group3.domain.Log;
-import com.group3.domain.WalletPageInfo;
+import com.group3.dto.WalletPageInfo;
 import com.group3.service.AccountService;
 import com.group3.service.LogService;
 import com.group3.utils.BlockChainKeys;

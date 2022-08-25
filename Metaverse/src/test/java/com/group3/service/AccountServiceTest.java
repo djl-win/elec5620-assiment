@@ -1,14 +1,8 @@
 package com.group3.service;
 
-import com.group3.domain.Account;
-import com.group3.domain.Log;
-import com.group3.domain.WalletPageInfo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 
 @SpringBootTest
 //@Transactional

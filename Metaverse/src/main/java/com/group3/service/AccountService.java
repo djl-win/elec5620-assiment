@@ -2,7 +2,7 @@ package com.group3.service;
 
 import com.group3.domain.Account;
 import com.group3.domain.Log;
-import com.group3.domain.WalletPageInfo;
+import com.group3.dto.WalletPageInfo;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(timeout = -1, rollbackFor = Exception.class)

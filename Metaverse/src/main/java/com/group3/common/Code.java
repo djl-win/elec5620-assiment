@@ -1,4 +1,4 @@
-package com.group3.controller;
+package com.group3.common;
 
 public class Code {
 

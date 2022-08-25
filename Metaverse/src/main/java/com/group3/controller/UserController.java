@@ -2,13 +2,15 @@ package com.group3.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.group3.domain.RegisterInfo;
-import com.group3.domain.SmsMessage;
+import com.group3.common.Code;
+import com.group3.common.Result;
+import com.group3.dto.RegisterInfo;
+import com.group3.dto.SmsMessage;
 import com.group3.domain.User;
 import com.group3.domain.UserDetail;
-import com.group3.service.MailService;
-import com.group3.service.SmsService;
 import com.group3.service.UserService;
+import com.group3.utils.MailSendUtil;
+import com.group3.utils.SmsSendUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +25,10 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private SmsService smsService;
+    private SmsSendUtil smsSendUtil;
 
     @Autowired
-    private MailService mailService;
+    private MailSendUtil mailSendUtil;
 
     /**
      * login
@@ -53,7 +55,7 @@ public class UserController {
             session.setAttribute("userPhone", phone);
 
             //CODE 可以发送给用户，此处直接返回data
-            String newCode = smsService.sentCode(phone);
+            String newCode = smsSendUtil.sentCode(phone);
 
             //发送code到返回值
             return new Result(newCode,40011,"login successfully, next to enter the code");
@@ -79,7 +81,7 @@ public class UserController {
         smsMessage.setCode(inputCode);
 
         //check code
-        boolean flag = smsService.checkCode(smsMessage);
+        boolean flag = smsSendUtil.checkCode(smsMessage);
 
         //if true code, put user to session to release interceptor
         if(flag){
@@ -88,7 +90,7 @@ public class UserController {
             session.setAttribute("user", user);
 
 //            return new Result(true,Code.SELECT_OK, "Login successfully");
-            return new Result(user.getUserUsername(),Code.SELECT_OK, "Login successfully");
+            return new Result(user.getUserUsername(), Code.SELECT_OK, "Login successfully");
         }
 
 
@@ -101,7 +103,7 @@ public class UserController {
     @GetMapping
     public Result setMailVerificationCode(String emailAddress){
 
-        String codeMail = mailService.sentMailCode(emailAddress);
+        String codeMail = mailSendUtil.sentMailCode(emailAddress);
         if (codeMail != null){
             return new Result(true,Code.SELECT_OK,"code has sent to your email");
         }
@@ -142,7 +144,7 @@ public class UserController {
         String checkCode = registerInfo.getMailCode();
 
         //first check the mail code
-        boolean check = mailService.checkMailCode(email,checkCode);
+        boolean check = mailSendUtil.checkMailCode(email,checkCode);
 
         //正确则进行下一步操作, wrong code return 60010
         if(!check){

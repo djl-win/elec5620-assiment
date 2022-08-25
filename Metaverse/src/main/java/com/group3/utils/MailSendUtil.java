@@ -1,11 +1,8 @@
-package com.group3.service.impl;
+package com.group3.utils;
 
-import com.group3.service.MailService;
-import com.group3.utils.CreateMailCode;
 import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class MailServiceImpl implements MailService {
+public class MailSendUtil{
 
     private String from = "day.dong99@yahoo.com";
 
@@ -34,7 +31,7 @@ public class MailServiceImpl implements MailService {
     private CreateMailCode createMailCode;
 
 
-    @Override
+
     //put mail code to cache, 300s expired
     //这个方法不能被trim，因为aop还没拦截，就把他存进去缓存了，要实现的话，拦截上一届controller，就先不修改了
     @CachePut(value = "MailCodeSpace", key = "#mailAddress")
@@ -79,7 +76,7 @@ public class MailServiceImpl implements MailService {
         return mailCodeInCache;
     }
 
-    @Override
+
     public boolean checkMailCode(String mailAddress, String mailCode) {
 //        System.out.println(mailCode);
 //

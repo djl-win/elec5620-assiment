@@ -1,19 +1,19 @@
-package com.group3.service;
+package com.group3.utils;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class MailServiceTest {
+public class MailSendUtilTest {
 
     @Autowired
-    private MailService mailService;
+    private MailSendUtil mailSendUtil;
 
     @Test
     public void testSentMailCode(){
 
-        System.out.println(mailService.sentMailCode("395763745@qq.com"));
+        System.out.println(mailSendUtil.sentMailCode("395763745@qq.com"));
 
     }
 

@@ -1,21 +1,21 @@
-package com.group3.service;
+package com.group3.utils;
 
-import com.group3.domain.SmsMessage;
+import com.group3.dto.SmsMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class SmsServiceTest {
+public class SmsSendUtilTest {
 
     @Autowired
-    private SmsService smsService;
+    private SmsSendUtil smsSendUtil;
 
     @Test
     public void testSentCode(){
         SmsMessage smsMessage = new SmsMessage();
         smsMessage.setTelephone("100844650");
-        String s = smsService.sentCode(smsMessage.getTelephone());
+        String s = smsSendUtil.sentCode(smsMessage.getTelephone());
         System.out.println(s);
     }
 }

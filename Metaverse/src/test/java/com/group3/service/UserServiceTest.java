@@ -2,6 +2,7 @@ package com.group3.service;
 
 import com.group3.domain.User;
 import com.group3.domain.UserDetail;
+import com.group3.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

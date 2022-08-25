@@ -1,26 +1,22 @@
-package com.group3.service.impl;
+package com.group3.utils;
 
-import com.group3.domain.SmsMessage;
-import com.group3.service.SmsService;
-import com.group3.utils.CreateSmsCode;
+import com.group3.dto.SmsMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
-public class SmsServiceImpl implements SmsService {
+@Component
+public class SmsSendUtil{
 
     @Autowired
     private CreateSmsCode smsCode;
 
-    @Override
     //把数据放入缓存，不取出来（如果空间中有key为#tel的值就把，对应的值存进去或者取出来）
     @CachePut(value = "VerifyCodeSpace", key = "#tel")
     public String sentCode(String tel) {
         return smsCode.createCode(tel);
     }
 
-    @Override
     /**
      * 用户输入的code和这个创建出来的code做校验
      */

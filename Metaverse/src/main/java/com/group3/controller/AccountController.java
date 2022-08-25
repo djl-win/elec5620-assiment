@@ -1,13 +1,18 @@
 package com.group3.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.group3.common.Code;
+import com.group3.common.Result;
 import com.group3.domain.Account;
 import com.group3.domain.Log;
-import com.group3.domain.WalletPageInfo;
+import com.group3.domain.User;
+import com.group3.dto.WalletPageInfo;
 import com.group3.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.regex.Pattern;
 
 @RestController
@@ -21,11 +26,15 @@ public class AccountController {
 
     /**
      * 根据用户名查询,是否存在此账户
-     * @param username 前端传入的用户名
+     *  username 前端传入的用户名
      * @return 存在此用户则返回40011code，返回用户钱包的信息，前端转向前端具体钱包信息的页面；不存在则返回40010，前端转向创建钱包的页面
      */
     @GetMapping
-    public Result checkHistory(String username){
+    public Result checkHistory( HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String username  = user.getUserUsername();
 
         WalletPageInfo<Log> logWalletPageInfo = accountService.selectHistoryByUsername(username);
         int code = logWalletPageInfo != null ? Code.SELECT_OK : Code.SELECT_FAIL;
@@ -36,11 +45,15 @@ public class AccountController {
 
     /**
      * 根据用户名查询,是否存在此账户
-     * @param username 前端传入的用户名
+     *  username 前端传入的用户名
      * @return 存在此用户则返回40011code，返回用户钱包的信息，前端转向前端具体钱包信息的页面；不存在则返回40010，前端转向创建钱包的页面
      */
-    @GetMapping("{username}")
-    public Result checkExistAccount(@PathVariable String username){
+    @PostMapping
+    public Result checkExistAccount(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String username  = user.getUserUsername();
 
         Account account = accountService.selectAccountByUsername(username);
         int code = account != null ? Code.SELECT_OK : Code.SELECT_FAIL;
@@ -52,11 +65,16 @@ public class AccountController {
 
     /**
      * 根据前端传过来的用户名，帮助用户自动创建钱包
-     * @param username token中的username
+     * username token中的username
      * @return 用户的私钥
      */
-    @PutMapping("{username}")
-    public Result createWallet(@PathVariable String username){
+    @RequestMapping("/create")
+    @PutMapping
+    public Result createWallet(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String username  = user.getUserUsername();
 
         String priKey = accountService.createWalletByUsername(username);
         int code = priKey != null ? Code.UPDATE_OK : Code.UPDATE_FAIL;
@@ -71,7 +89,7 @@ public class AccountController {
      * @return 成功与否
      */
     @PutMapping
-    public Result increaseBalance(@RequestBody String input){
+    public Result increaseBalance(@RequestBody String input, HttpServletRequest request){
 
         JSONObject jsonObject = JSONObject.parseObject(input);
 
@@ -79,10 +97,13 @@ public class AccountController {
         String originalAmount = jsonObject.getString("amount");
 
         //amount表中的avatar是和username一样的，直接匹配就行
-        String username = jsonObject.getString("username");
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        String username  = user.getUserUsername();
 
         boolean matches = pattern.matcher(originalAmount).matches();
         if(matches){
+
 
             //if match number, then to charge operation
             double amount = Double.parseDouble(originalAmount);
