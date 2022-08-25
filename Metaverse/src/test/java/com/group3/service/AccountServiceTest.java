@@ -22,13 +22,13 @@ public class AccountServiceTest {
      */
     @Test
     public void testSelectAccountByUsername(){
-        WalletPageInfo<Log> walletInfo = accountService.selectAccountByUsername("admin");
-        System.out.println(walletInfo.getAccount());
-
-        ArrayList<Log> searchList = walletInfo.getSearchList();
-        for (Log log : searchList) {
-            System.out.println(log);
-        }
+//        WalletPageInfo<Log> walletInfo = accountService.selectAccountByUsername("admin");
+//        System.out.println(walletInfo.getAccount());
+//
+//        ArrayList<Log> searchList = walletInfo.getSearchList();
+//        for (Log log : searchList) {
+//            System.out.println(log);
+//        }
 
     }
 

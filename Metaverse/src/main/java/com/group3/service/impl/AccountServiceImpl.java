@@ -30,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
     private LogService logService;
 
     @Override
-    public WalletPageInfo<Log> selectAccountByUsername(String username) {
+    public WalletPageInfo<Log> selectHistoryByUsername(String username) {
 
         //封装钱包所有人和操作日志信息的类
         WalletPageInfo<Log> logWalletPageInfo = new WalletPageInfo<>();
@@ -45,6 +45,11 @@ public class AccountServiceImpl implements AccountService {
 
         return logWalletPageInfo;
 
+    }
+
+    @Override
+    public Account selectAccountByUsername(String username) {
+        return accountDao.fetchByUsername(username);
     }
 
     @Override

@@ -24,15 +24,31 @@ public class AccountController {
      * @param username 前端传入的用户名
      * @return 存在此用户则返回40011code，返回用户钱包的信息，前端转向前端具体钱包信息的页面；不存在则返回40010，前端转向创建钱包的页面
      */
-    @GetMapping("{username}")
-    public Result checkExistAccount(@PathVariable String username){
+    @GetMapping
+    public Result checkHistory(String username){
 
-        WalletPageInfo<Log> logWalletPageInfo = accountService.selectAccountByUsername(username);
+        WalletPageInfo<Log> logWalletPageInfo = accountService.selectHistoryByUsername(username);
         int code = logWalletPageInfo != null ? Code.SELECT_OK : Code.SELECT_FAIL;
         String msg = logWalletPageInfo != null ? "Search success" : "Search error";
 
         return new Result(logWalletPageInfo,code,msg);
     }
+
+    /**
+     * 根据用户名查询,是否存在此账户
+     * @param username 前端传入的用户名
+     * @return 存在此用户则返回40011code，返回用户钱包的信息，前端转向前端具体钱包信息的页面；不存在则返回40010，前端转向创建钱包的页面
+     */
+    @GetMapping("{username}")
+    public Result checkExistAccount(@PathVariable String username){
+
+        Account account = accountService.selectAccountByUsername(username);
+        int code = account != null ? Code.SELECT_OK : Code.SELECT_FAIL;
+        String msg = account != null ? "You have already created wallet, next enter the wallet interface" : "Next to go to create a new Wallet";
+
+        return new Result(account,code,msg);
+    }
+
 
     /**
      * 根据前端传过来的用户名，帮助用户自动创建钱包

@@ -13,7 +13,7 @@ public interface AccountService {
      * @param username user表中的user_username
      * @return 返回用户信息，空则null
      */
-    WalletPageInfo<Log> selectAccountByUsername(String username);
+    Account selectAccountByUsername(String username);
 
     /**
      * 根据控制层传过来的用户名，帮助用户创建钱包
@@ -30,4 +30,11 @@ public interface AccountService {
      * @return 改变的行数
      */
     boolean chargeAccount(double amount, String username);
+
+    /**
+     * 查询用户历史记录信息
+     * @param username 用户名
+     * @return 用户历史记录
+     */
+    WalletPageInfo<Log> selectHistoryByUsername(String username);
 }
