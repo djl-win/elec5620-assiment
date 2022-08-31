@@ -27,3 +27,6 @@ http://localhost:8080/5620/pages/mIndex.html
 
 -----
 account和log表添加级联删除 not ok
+
+-----
+生产的文件在D盘目录下的D:\nftImages中，有需要的话可以去NftServiceImpl文件中修改，前端读取时也记得修改

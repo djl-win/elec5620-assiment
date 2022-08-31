@@ -4,8 +4,10 @@ import com.group3.domain.Nft;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
+@Transactional
 public class NftDaoTest {
 
     @Autowired
@@ -23,6 +25,18 @@ public class NftDaoTest {
         System.out.println(nft.getNftDeleted());
         System.out.println(nft.getNftVersion());
         System.out.println(nft.getNftUserId());
+    }
 
+    @Test
+    public void testInsertNft(){
+        Nft nft = new Nft();
+        nft.setNftSignature("signature");
+        nft.setNftUrl("nftImageUrl");
+        nft.setNftPrice(0);
+        nft.setNftDescription("not yet config");
+        nft.setNftLikes(0);
+        nft.setNftUserId(1);
+
+        System.out.println(nftDao.insertNft(nft));
     }
 }
