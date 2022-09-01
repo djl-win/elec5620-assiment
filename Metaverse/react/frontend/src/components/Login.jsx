@@ -1,13 +1,12 @@
 import React from "react";
 import {GoogleLogin, googleLogout} from "@react-oauth/google";
 import {useNavigate} from "react-router-dom";
-import {FcGoogle} from "react-icons/fc";
+import jwtDecode from "jwt-decode";
+
+import {client} from "../client";
 
 import loginBackground from '../assets/login_background.mp4';
 import logo from '../assets/logo.gif';
-
-import {user} from "../user";
-import jwtDecode from "jwt-decode";
 
 const Login = () => {
 
@@ -15,7 +14,7 @@ const Login = () => {
 
     const responseGoogleSuccess = (response) => {
         const decoded = jwtDecode(response.credential);
-        // console.log(decoded); //检查Google返回的数据
+        // console.log(decoded);
         localStorage.setItem('user', JSON.stringify(decoded));
 
         const {sub, name, picture} = decoded;
@@ -31,7 +30,7 @@ const Login = () => {
             image: picture,
         }
 
-        user.createIfNotExists(doc)
+        client.createIfNotExists(doc)
             .then(() => {
                 navigate('/', {replace: true})
             })
