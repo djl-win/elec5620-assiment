@@ -4,6 +4,8 @@ import com.group3.domain.Nft;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
+
 @Mapper
 public interface NftDao {
 
@@ -19,4 +21,11 @@ public interface NftDao {
      * @return infect rows
      */
     int insertNft(@Param("nft") Nft nft);
+
+    /**
+     * 查询此用户所有nft，返回
+     * @param userId 用户id
+     * @return 此用户nft集合
+     */
+    ArrayList<Nft> selectAllNftsByUserId(@Param("userid")int userId);
 }

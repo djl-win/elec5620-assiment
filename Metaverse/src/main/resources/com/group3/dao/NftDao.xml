@@ -27,4 +27,11 @@
             nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_version, nft_userid)
         VALUES (#{nft.nftSignature}, #{nft.nftUrl}, #{nft.nftPrice}, #{nft.nftDescription}, #{nft.nftLikes}, #{nft.nftVersion}, #{nft.nftUserId});
     </insert>
+
+    <select id="selectAllNftsByUserId" resultMap="nftResultMap">
+        SELECT nft_id, nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_deleted, nft_version, nft_userid
+        FROM tb_nft
+        Where nft_userid = #{userid}
+        ORDER BY nft_id ASC
+    </select>
 </mapper>

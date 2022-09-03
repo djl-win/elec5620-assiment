@@ -30,3 +30,4 @@ account和log表添加级联删除 not ok
 
 -----
 生产的文件在D盘目录下的D:\nftImages中，有需要的话可以去NftServiceImpl文件中修改，前端读取时也记得修改
+前端获取图片的url，并将其展示在页面，没有解耦合，因为数据库中存储的url为file:///D:/nftImages/bef36b39ca6248138e9a90cdd3fd83df.png格式

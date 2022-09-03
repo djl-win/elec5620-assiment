@@ -8,6 +8,8 @@ import com.group3.utils.CreateUuid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class NftServiceImpl implements NftService {
 
@@ -28,7 +30,7 @@ public class NftServiceImpl implements NftService {
         String signature = createUuid.newUuid();
 
         //文件生成的目录
-        String nftImageUrl = "D:\\nftImages\\" + signature + ".png";
+        String nftImageUrl = "D:/front-end/hkzf/src/assets/nftWorks/" + signature + ".png";
 
         //1.把base64转为图片保存到本地，并返回地址值
         base64ToFile.saveBase64(base64,nftImageUrl);
@@ -36,11 +38,17 @@ public class NftServiceImpl implements NftService {
         //2.把地址值等信息，传入到数据库
         Nft nft = new Nft();
         nft.setNftSignature(signature);
-        nft.setNftUrl(nftImageUrl);
+        nft.setNftUrl(signature + ".png");
         nft.setNftPrice(0);
         nft.setNftDescription("not yet config");
         nft.setNftLikes(0);
         nft.setNftUserId(userId);
         return nftDao.insertNft(nft) == 1;
+    }
+
+    @Override
+    public ArrayList<Nft> selectAll(int userId) {
+
+        return nftDao.selectAllNftsByUserId(userId);
     }
 }
