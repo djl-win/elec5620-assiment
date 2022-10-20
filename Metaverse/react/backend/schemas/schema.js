@@ -5,7 +5,7 @@ import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 import comment from "./comment";
 import createdBy from "./createdBy";
-import pin from "./pin";
+import NFT from "./nft";
 import save from "./save";
 import user from "./user";
 
@@ -17,6 +17,6 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     /* Your types here! */
-    comment, createdBy, pin, save, user
+    comment, createdBy, NFT, save, user
   ]),
 })
