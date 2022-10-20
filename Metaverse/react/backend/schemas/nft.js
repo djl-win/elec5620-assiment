@@ -1,6 +1,6 @@
 export default {
-    name: 'pin',
-    title: 'Pin',
+    name: 'NFT',
+    title: 'NFT',
     type: 'document',
     fields: [
         {
