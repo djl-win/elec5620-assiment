@@ -28,4 +28,18 @@ public interface NftDao {
      * @return 此用户nft集合
      */
     ArrayList<Nft> selectAllNftsByUserId(@Param("userid")int userId);
+
+    /**
+     * 修改NFT的价格和版本，version为 1，则为出售状态
+     * @param nft nft信息
+     * @return 此用户nft集合
+     */
+    int modifyNftVersionAndPrice(@Param("nft")Nft nft);
+
+    /**
+     * 查询正在出售的nft信息，version为1
+     * @param userId 用户id
+     * @return 此用户正在出售的nft集合
+     */
+    ArrayList<Nft> selectAllNftOnSellByUserId(int userId);
 }

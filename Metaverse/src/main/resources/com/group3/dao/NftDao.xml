@@ -16,6 +16,7 @@
         <result property="nftUserId" column="nft_userid"/>
     </resultMap>
 
+
     <select id="selectTest" resultMap="nftResultMap">
         select *
         from tb_nft
@@ -31,7 +32,20 @@
     <select id="selectAllNftsByUserId" resultMap="nftResultMap">
         SELECT nft_id, nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_deleted, nft_version, nft_userid
         FROM tb_nft
-        Where nft_userid = #{userid}
+        Where nft_userid = #{userid} and nft_version = 0
+        ORDER BY nft_id ASC
+    </select>
+
+    <update id="modifyNftVersionAndPrice">
+         UPDATE tb_nft
+	     SET  nft_version = 1 , nft_price = #{nft.nftPrice}
+	     WHERE nft_id= #{nft.nftId}
+    </update>
+
+    <select id="selectAllNftOnSellByUserId" resultMap="nftResultMap">
+        SELECT nft_id, nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_deleted, nft_version, nft_userid
+        FROM tb_nft
+        Where nft_userid = #{userid} and nft_version = 1
         ORDER BY nft_id ASC
     </select>
 </mapper>
