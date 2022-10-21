@@ -1,5 +1,5 @@
 export default {
-    name: 'NFT',
+    name: 'nft',
     title: 'NFT',
     type: 'document',
     fields: [
