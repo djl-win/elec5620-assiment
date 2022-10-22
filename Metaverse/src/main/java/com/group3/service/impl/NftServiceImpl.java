@@ -2,6 +2,7 @@ package com.group3.service.impl;
 
 import com.group3.dao.NftDao;
 import com.group3.domain.Nft;
+import com.group3.dto.OnSellMessage;
 import com.group3.service.NftService;
 import com.group3.utils.Base64ToFile;
 import com.group3.utils.CreateUuid;
@@ -51,4 +52,25 @@ public class NftServiceImpl implements NftService {
 
         return nftDao.selectAllNftsByUserId(userId);
     }
+
+    @Override
+    public Boolean pushNft(Nft nft) {
+        int flag = nftDao.modifyNftVersionAndPrice(nft);
+        return flag == 1;
+    }
+
+    @Override
+    public ArrayList<OnSellMessage> selectAllNftOnSell(int userId) {
+        ArrayList<Nft> nfts = nftDao.selectAllNftOnSellByUserId(userId);
+        ArrayList<OnSellMessage> onSellMessages = new ArrayList<>();
+        for (Nft nft : nfts) {
+            OnSellMessage onSellMessage = new OnSellMessage();
+            onSellMessage.setImage("https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png");
+            onSellMessage.setMessage("Your NFT with ID "+ nft.getNftId() + " is for sale, price: " + nft.getNftPrice());
+            onSellMessages.add(onSellMessage);
+        }
+
+        return onSellMessages;
+    }
+
 }

@@ -3,7 +3,6 @@ package com.group3.aop;
 
 import com.group3.domain.User;
 import com.group3.domain.UserDetail;
-import org.apache.coyote.http11.filters.IdentityOutputFilter;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
