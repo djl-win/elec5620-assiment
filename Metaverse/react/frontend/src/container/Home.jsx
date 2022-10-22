@@ -6,6 +6,7 @@ import {Link, Route, Routes} from 'react-router-dom';
 import {Sidebar, UserProfile} from '../components'; //通过components下的index.js指向，避免多行引入
 import {client} from "../client";
 import {userQuery} from "../utils/data";
+import {fetchUser} from "../utils/fetchUser";
 import NFTs from "./NFTs";
 
 import logo from '../assets/logo.gif';
@@ -16,7 +17,7 @@ const Home = () => {
     const [user, setUser] = useState(null);
     const scrollRef = useRef(null);
 
-    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+    const userInfo = fetchUser()
 
     useEffect(() => {
 
