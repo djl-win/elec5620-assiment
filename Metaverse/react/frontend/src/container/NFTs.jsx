@@ -16,7 +16,7 @@ const NFTs = ({user}) => {
                     <Route path="/" element={<Feed />} />
                     <Route path="/category/:categoryId" element={<Feed />} />
                     <Route path="/NFT_detail/:NFTId" element={<NFTsDetail user={user} />} />
-                    <Route path="/create_nft" element={<CreateNFT user={user} />} />
+                    <Route path="/create_NFT" element={<CreateNFT user={user} />} />
                     <Route path="/search" element={<Search searchContent={searchContent} setSearchContent={setSearchContent} />} />
                 </Routes>
             </div>
