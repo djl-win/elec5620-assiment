@@ -50,4 +50,11 @@ public interface UserDao {
      * @return user objection
      */
     User selectUserByPhone(@Param("phone")String userPhone);
+
+    /**
+     * select user by userid
+     * @param userId userid
+     * @return user objection
+     */
+    User selectUserByUserId(@Param("userid")int userId);
 }

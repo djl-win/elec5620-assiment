@@ -100,4 +100,5 @@ public class NftController {
         ArrayList<OnSellMessage> onSell = nftService.selectAllNftOnSell(userId);
         return new Result(onSell,Code.SELECT_OK,"success");
     }
+
 }

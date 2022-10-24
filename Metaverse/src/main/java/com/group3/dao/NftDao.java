@@ -42,4 +42,11 @@ public interface NftDao {
      * @return 此用户正在出售的nft集合
      */
     ArrayList<Nft> selectAllNftOnSellByUserId(int userId);
+
+    /**
+     * search nft by nftid
+     * @param nftId nft id
+     * @return nft
+     */
+    Nft selectNftByNftId(@Param("nftid") int nftId);
 }

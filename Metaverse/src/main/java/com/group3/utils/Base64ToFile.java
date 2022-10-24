@@ -20,7 +20,9 @@ public class Base64ToFile {
     public boolean saveBase64(String base64, String filePath){
 
         //去除base64前面部分(可优化，有的时候不一定是png格式)
-        String newBase64 = base64.replace("data:image/png;base64,", "");
+        String newBase64 = base64.replace("data:image/png;base64,", "").replace("event: newImage\n" +
+                "id: 1\n" +
+                "data:", "");
         //判断文件夹是否存在
         File outputFile = new File(filePath);
 

@@ -65,4 +65,10 @@
         where a.userdetail_phone = #{phone} and a.userdetail_deleted != 1 and b.user_deleted != 1
     </select>
 
+    <select id="selectUserByUserId" resultMap="userResultMap">
+        select user_id,user_username,user_password
+        from tb_user
+        where user_id = #{userid} and user_deleted != 1
+    </select>
+
 </mapper>

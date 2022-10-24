@@ -2,10 +2,10 @@
     width: 100%;
     height: 100%;
     min-width: 100px;
-    background-image: url("../asset/6223415.png");
     background-size: cover;
     background-position: center center;
-    overflow: auto;
+    background-color: #C1CFF7;
+    overflow: hidden;
     background-repeat: no-repeat;
     position: fixed;
     top: 0px;
@@ -14,12 +14,22 @@
     padding-top: 150px;
 }
 
+.video-background {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 800px;
+}
+
 .logintext {
     position: absolute;
     top: -10px;
     left: 65px;
-    font-style: italic;
-    font-family: Cambria, serif;
+    font-family: "IBM Plex Sana Thai Looped", sans-serif;
     margin-bottom: 20px;
     line-height: 50px;
     text-align: center;
@@ -34,7 +44,6 @@
     margin-left: 50%;
 }
 
-
 .logindata {
     position: absolute;
     top: 35%;
@@ -42,16 +51,15 @@
     transform: translate(-50%, -50%);
     width: 500px;
     height: 300px;
-    background: #111845a6;
     box-sizing: border-box;
     overflow: hidden;
+    background: #111845a6;
     box-shadow: 0 20px 50px rgb(23, 32, 90);
     /*border: 2px solid #2a3cad;*/
     color: white;
     padding: 20px;
-    font-style: italic;
     font-family: Cambria, serif;
-
+    border-radius: 30px 30px 40px;
 }
 
 .tool {
@@ -60,8 +68,6 @@
     justify-content: space-between;
     color: white;
 }
-
-
 
 .codecss {
     left: 300px;
@@ -77,12 +83,12 @@
     margin-top: 10px;
     text-align: center;
 }
+
 .el-input__inner {
-    font-style: italic;
     font-family: Cambria, serif;
 }
+
 .el-button{
-    font-style: italic;
     font-family: Cambria, serif;
 }
 
@@ -111,19 +117,6 @@
     font-size: 15px;
 }
 
-/*ui*/
-/* /deep/ .el-form-item__label {
-  font-weight: bolder;
-  font-size: 15px;
-  text-align: left;
-}
-
-/deep/ .el-button {
-  width: 100%;
-  margin-bottom: 10px;
-
-} */
-
 /* [ YEK/SASS - VERSION : 3.1.0 ] */
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
@@ -133,10 +126,6 @@
     visibility: hidden;
 }
 
-/* CREDIT : YEK/SASS (https://github.com/yek-org/yek-sass) */
-/* __[ FONT'S ]__ */
-/* __[ VARIABLE ]__ */
-/* __[ :ROOT ]__ */
 :root {
     --color-primary: #1a2556;
     --color-secondary: #a5b3d4;
@@ -155,7 +144,6 @@
     --font-proxima: proxima-soft, Proxima Soft, Proxima Nova Soft, Helvetica, Arial, sans-serif;
 }
 
-/* __[ STYLE ]__ */
 *,
 *::before,
 *::after {
@@ -194,10 +182,6 @@ body,
 }
 
 .verification {
-    /*
-    HINT : `--m-` = main
-    HINT : `--w-` = wrap
-    */
     position: absolute;
     left: 37%;
     --m-width: 450px;
@@ -207,6 +191,7 @@ body,
     height: var(--m-height);
     width: var(--m-width);
 }
+
 .verification, .verification__wrap, .verification__fields, .verification__field, .verification__verify {
     display: flex;
     flex-direction: row;
@@ -215,16 +200,19 @@ body,
     justify-content: center;
     align-content: center;
 }
+
 .verification__wrap, .verification__fields, .verification__field, .verification__header, .verification__verify, .verification__timeout {
     padding: 0;
     margin: 0;
     width: var(--w-width);
 }
+
 .verification__wrap {
     justify-content: space-between;
     flex-direction: column;
     height: var(--w-height);
 }
+
 .verification__title {
     padding: 0;
     margin: 0;
@@ -232,6 +220,7 @@ body,
     align-content: center;
     margin-bottom: 50px;
 }
+
 .verification__description {
     position: absolute;
     left: 0px;
@@ -240,18 +229,21 @@ body,
     line-height: 1.6rem;
     font-size: 1rem;
     margin: 0;
-    font-family: Bahnschrift;
 }
+
 .verification__header {
     height: 35%;
 }
+
 .verification__fields {
     height: 25%;
 }
+
 .verification__verify {
     height: 25%;
 
 }
+
 .verification__verify p {
     display: flex;
     flex-direction: row;
@@ -260,10 +252,12 @@ body,
     justify-content: center;
     align-content: center;
 }
+
 .verification__verify p, .verification__verify_btn {
     width: 100%;
     height: 100%;
 }
+
 .verification__verify_btn {
     padding: 0;
     margin: 20px;
@@ -277,12 +271,15 @@ body,
     padding: 8px 16px;
     font-size: 1.25rem;
 }
+
 .verification__verify_btn:hover {
     transform: scale(1.05);
 }
+
 .verification__verify_btn:active {
     transform: scale(0.95);
 }
+
 .verification__field {
     justify-content: space-between;
     letter-spacing: 1.7px;
@@ -296,9 +293,11 @@ body,
     height: 100%;
     height: 60px;
 }
+
 .verification__field:hover, .verification__field:focus {
     box-shadow: none;
 }
+
 .verification__input {
     letter-spacing: 1.7px;
     padding: 0;
@@ -319,12 +318,15 @@ body,
     font-size: 2rem;
     font-weight: bold;
 }
+
 .verification__input:hover {
     box-shadow: 0 0 0 0.25rem var(--color-input-hover);
 }
+
 .verification__input:focus {
     box-shadow: 0 0 0 0.25rem var(--color-input-focus);
 }
+
 .verification__timeout {
     display: flex;
     flex-direction: row;
@@ -334,6 +336,7 @@ body,
     align-content: center;
     height: 25px;
 }
+
 .verification__timeout p {
     width: 100%;
     height: 100%;
@@ -344,15 +347,18 @@ body,
     padding: 4px 2px;
     padding-left: 4px;
 }
+
 .verification__timeout strong {
     display: inline-block;
     width: 55px;
     text-align: center;
 }
+
 .verification__timeout, .verification__header, .verification__fields {
     margin-right: 9px;
     margin-left: 9px;
 }
+
 .verification__send_new {
     border: none;
     outline: none;
@@ -372,9 +378,11 @@ body,
     font: inherit;
     transition: top 0.5s 0.1s ease, height 0.5s 0.1s ease, transform 0.3s ease, background 0.3s ease;
 }
+
 .verification--timed-out {
     position: relative;
 }
+
 .verification--timed-out .verification__send_new {
     border: none;
     outline: none;
@@ -389,9 +397,11 @@ body,
     color: var(--color-white);
     font-weight: bold;
 }
+
 .verification--timed-out .verification__send_new:hover {
     transform: scale(1.05);
 }
+
 .verification--timed-out .verification__send_new:active {
     transform: scale(0.95);
 }
@@ -413,39 +423,35 @@ body,
         font-size: 1.5rem;
     }
 }
-/* --- THEME --- */
-/* [DEFAUTL] */
+
 .verification {
-    /*background-image: url("../asset/back1.png");*/
-    /*background-color: pink;*/
-    background-position: center center;
-    /*display: none;*/
-    /*背景模糊*/
     backdrop-filter: blur(500px);
-    /*filter: blur(1px);*/
-    /*虚化背景*/
     opacity: 0.8;
-    box-shadow: deeppink 20px 20px 60px 15px;
-    /*边框线*/
-    border: 7px ;
-    border-style: solid solid solid solid;
-    border-color: var(--color-primary);
+    overflow: hidden;
+    background: #111845a6;
+    box-shadow: 0 20px 50px rgb(23, 32, 90);
     border-radius: 30px 30px 40px;
-
-
-    background-color: rgba(0,0,0,.5);
     color: var(--color-secondary);
 }
+
 .verification__title {
+    margin-left: 2%;
     filter: blur(0px);
-    font-style: italic;
-    font-family: Cambria, serif;
+    font-family: "IBM Plex Sana Thai Looped", sans-serif;
     position: absolute;
     top: 35px;
     left: 0px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bolder;
+    color: white;
+    text-shadow: 10px 2px 4px lightskyblue;
 );
 }
+
 .verification__description {
+    margin-left: 2%;
     color: var(--color-secondary);
 }
 
@@ -455,12 +461,15 @@ body,
     color: var(--color-light-gray);
 
 }
+
 .verification__input {
     background: var(--color-gray);
 }
+
 .verification__input:hover {
     box-shadow: 0 0 0 0.25rem var(--color-input-hover);
 }
+
 .verification__input:focus {
     box-shadow: 0 0 0 0.25rem var(--color-input-focus);
 }
@@ -479,10 +488,12 @@ body,
     --color-input-hover: #abbcf2;
     --color-input-focus: #abbcf2;
 }
+
 [data-theme=dark] ::-moz-selection {
     color: var(--color-light-gray);
     background: var(--color-primary);
 }
+
 [data-theme=dark] ::selection {
     color: var(--color-light-gray);
     background: var(--color-primary);
@@ -491,6 +502,7 @@ body,
 [data-theme=dark-2] {
     /* ALT : secondary: #2bbdff */
 }
+
 [data-theme=dark-2] {
     --color-primary: #ecb365;
     --color-secondary: #5296b5;

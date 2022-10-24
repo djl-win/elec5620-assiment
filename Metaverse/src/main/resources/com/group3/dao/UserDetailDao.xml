@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.UserDetailDao">
+
+    <resultMap id="userDetailResultMap" type="UserDetail">
+        <id property="userDetailId" column="userdetail_id"/>
+        <result property="userDetailName" column="userdetail_name"/>
+        <result property="userDetailEmail" column="userdetail_email"/>
+        <result property="userDetailPhone" column="userdetail_phone"/>
+        <result property="userDetailDeleted" column="userdetail_deleted"/>
+        <result property="userDetailUserId" column="userdetail_userid"/>
+    </resultMap>
+
+    <select id="selectUserDetailByUserId" resultMap="userDetailResultMap">
+    SELECT userdetail_id, userdetail_name, userdetail_email, userdetail_phone, userdetail_deleted, userdetail_userid
+    FROM tb_userdetail
+    WHERE userdetail_userid = #{userid};
+    </select>
+
+
+</mapper>

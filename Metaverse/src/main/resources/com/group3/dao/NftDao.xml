@@ -48,4 +48,10 @@
         Where nft_userid = #{userid} and nft_version = 1
         ORDER BY nft_id ASC
     </select>
+
+    <select id="selectNftByNftId"  resultMap="nftResultMap">
+        SELECT nft_id, nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_deleted, nft_version, nft_userid
+        FROM tb_nft
+        Where nft_id = #{nftid}
+    </select>
 </mapper>
