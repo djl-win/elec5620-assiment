@@ -8,6 +8,10 @@ class AppTests {
 
     @Test
     void contextLoads() {
+        double count = (double) 43 / (double) 4;
+        double ceil = Math.ceil(count);
+
+        System.out.println((int)ceil);
     }
 
 }

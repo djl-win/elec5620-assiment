@@ -37,4 +37,25 @@ public interface NftService {
      * @return 返回前端的消息集合
      */
     ArrayList<OnSellMessage> selectAllNftOnSell(int userId);
+
+
+    /**
+     * paging nft
+     * @param pageNumber page number
+     * @return nfts
+     */
+    ArrayList<Nft> selectNftsByPages(int pageNumber);
+
+    /**
+     * search nfts count by number
+     * @return nfts count
+     */
+    int selectNftsPagesCount();
+
+    /**
+     * update nft like
+     * @param nft nft
+     * @return true or false
+     */
+    boolean updateNftLikes(Nft nft);
 }

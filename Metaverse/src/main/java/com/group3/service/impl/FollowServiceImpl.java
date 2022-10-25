@@ -65,4 +65,22 @@ public class FollowServiceImpl implements FollowService {
     public boolean cancelFollowByFollowId(int followId) {
         return followDao.deleteFollowByFollowId(followId) == 1;
     }
+
+    @Override
+    public int newFollow(int userId, Nft nft) {
+
+        int tempFollow = followDao.findAllFollowsByUserIdAndNftId(userId,nft.getNftId());
+
+        if(tempFollow == 0){
+            //new follow
+            int temp = followDao.insertFollowByUserIdAndNftId(userId,nft.getNftId());
+
+            if(temp == 1){
+                //insert success
+                return 2;
+
+            } else  return 3; // insert fail
+        } else return 1;
+
+    }
 }

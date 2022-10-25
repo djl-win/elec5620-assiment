@@ -73,4 +73,23 @@ public class NftServiceImpl implements NftService {
         return onSellMessages;
     }
 
+    @Override
+    public ArrayList<Nft> selectNftsByPages(int pageNumber) {
+        return nftDao.fetchNftByPageNumber(pageNumber-1);
+    }
+
+    @Override
+    public int selectNftsPagesCount() {
+        int temp = nftDao.selectNftCount();
+        double count = (double) temp / (double) 4;
+        double ceil = Math.ceil(count);
+        return (int)ceil;
+    }
+
+    @Override
+    public boolean updateNftLikes(Nft nft) {
+        int flag = nftDao.updateNftLikesByNftId(nft);
+        return flag == 1;
+    }
+
 }

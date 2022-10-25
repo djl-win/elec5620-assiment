@@ -101,4 +101,42 @@ public class NftController {
         return new Result(onSell,Code.SELECT_OK,"success");
     }
 
+    /**
+     * get 分页查询NFT信息，传入页数
+     * @param pageNumber 查询的页数
+     * @return 封装好的nft信息集合
+     */
+    @GetMapping("{pageNumber}")
+    public Result getNftByPageNumber(@PathVariable("pageNumber") int pageNumber){
+        //执行查询操作
+        ArrayList<Nft> nftList = nftService.selectNftsByPages(pageNumber);
+
+        return new Result(nftList,Code.SELECT_OK,"success search");
+    }
+
+    /**
+     * get 查询nft页数
+     * @return nft总页数
+     */
+    @GetMapping("/count")
+    public Result getNftPageCount(){
+        //执行查询操作
+        int count = nftService.selectNftsPagesCount();
+        return new Result(count,Code.SELECT_OK,"success search");
+    }
+
+    /**
+     * get NFT likes + 1
+     * @return nft总页数
+     */
+    @PostMapping("/likes")
+    public Result handleNftLikes(@RequestBody Nft nft){
+        boolean flag = nftService.updateNftLikes(nft);
+        if(flag){
+            return new Result(true,Code.UPDATE_OK,"success update likes");
+        }
+        return new Result(false,Code.UPDATE_FAIL,"fail to update likes");
+    }
+
+
 }

@@ -54,4 +54,20 @@
         FROM tb_nft
         Where nft_id = #{nftid}
     </select>
+    <select id="fetchNftByPageNumber" resultMap="nftResultMap">
+        SELECT nft_id, nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_deleted, nft_version, nft_userid
+        FROM public.tb_nft
+        order by nft_id
+            LIMIT 4 offset #{pageNumber}*4;
+    </select>
+    <select id="selectNftCount" resultType="java.lang.Integer">
+        SELECT count(nft_id)
+        FROM tb_nft
+    </select>
+
+    <update id="updateNftLikesByNftId">
+        UPDATE tb_nft
+        SET nft_likes= #{nft.nftLikes}+1
+        WHERE  nft_id= #{nft.nftId}
+    </update>
 </mapper>

@@ -1,5 +1,6 @@
 package com.group3.service;
 
+import com.group3.domain.Nft;
 import com.group3.dto.FollowInfo;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,4 +22,12 @@ public interface FollowService {
      * @return success or not
      */
     boolean cancelFollowByFollowId(int followId);
+
+    /**
+     * new follow
+     * @param userId userid
+     * @param nft nft
+     * @return flag
+     */
+    int newFollow(int userId, Nft nft);
 }

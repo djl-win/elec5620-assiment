@@ -2,6 +2,7 @@ package com.group3.controller;
 
 import com.group3.common.Code;
 import com.group3.common.Result;
+import com.group3.domain.Nft;
 import com.group3.domain.User;
 import com.group3.dto.FollowInfo;
 import com.group3.dto.OnSellMessage;
@@ -51,5 +52,29 @@ public class FollowController {
         } else {
             return new Result(false, Code.DELETE_FAIL, "Fail to cancel follow");
         }
+    }
+
+    /**
+     * post 新增关注 接口地址：http://localhost:8080/5620/follows
+     * @param request 请求
+     * @param nft nft
+     * @return true or false
+     */
+    @PostMapping
+    public Result allInformation(@RequestBody Nft nft,HttpServletRequest request){
+        //获取用户id
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
+
+        //执行查询操作 1用户已经follow了此NFT， 2成功， 3失败
+        int flag = followService.newFollow(userId,nft);
+        if(flag == 1){
+            return new Result(null, Code.INSERT_FAIL,"You have already followed this nft");
+        } else if(flag == 3){
+            return new Result(null, Code.INSERT_FAIL,"fail to follow");
+        }
+
+        return new Result(null, Code.INSERT_OK,"success");
     }
 }

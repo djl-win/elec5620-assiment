@@ -49,4 +49,24 @@ public interface NftDao {
      * @return nft
      */
     Nft selectNftByNftId(@Param("nftid") int nftId);
+
+    /**
+     * paging nfts
+     * @param pageNumber page number
+     * @return 4 nfts by page
+     */
+    ArrayList<Nft> fetchNftByPageNumber(@Param("pageNumber")int pageNumber);
+
+    /**
+     * search count in nft table
+     * @return  count
+     */
+    int selectNftCount();
+
+    /**
+     * updateNftLikesByNftId
+     * @param nft nft
+     * @return 1 or 0
+     */
+    int updateNftLikesByNftId(@Param("nft")Nft nft);
 }

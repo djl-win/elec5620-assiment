@@ -14,4 +14,8 @@ public interface FollowDao {
     int findNumberOfNftFollowedByUserId(@Param("userid") int userId);
 
     int deleteFollowByFollowId(@Param("followid")int followId);
+
+    int findAllFollowsByUserIdAndNftId(@Param("userid")int userId, @Param("nftid")int nftId);
+
+    int insertFollowByUserIdAndNftId(@Param("userid")int userId, @Param("nftid")int nftId);
 }
