@@ -1,7 +1,13 @@
 package com.group3.service.impl;
 
 import com.group3.dao.NftDao;
+import com.group3.dao.UserDao;
+import com.group3.dao.UserDetailDao;
+import com.group3.domain.Follow;
 import com.group3.domain.Nft;
+import com.group3.domain.User;
+import com.group3.domain.UserDetail;
+import com.group3.dto.FollowInfo;
 import com.group3.dto.OnSellMessage;
 import com.group3.service.NftService;
 import com.group3.utils.Base64ToFile;
@@ -16,6 +22,12 @@ public class NftServiceImpl implements NftService {
 
     @Autowired
     private NftDao nftDao;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private UserDetailDao userDetailDao;
 
     @Autowired
     private Base64ToFile base64ToFile;
@@ -41,7 +53,9 @@ public class NftServiceImpl implements NftService {
         nft.setNftSignature(signature);
         nft.setNftUrl(signature + ".png");
         nft.setNftPrice(0);
-        nft.setNftDescription("not yet config");
+
+        //3.config description
+        nft.setNftDescription("creatx nft work");
         nft.setNftLikes(0);
         nft.setNftUserId(userId);
         return nftDao.insertNft(nft) == 1;
@@ -81,7 +95,7 @@ public class NftServiceImpl implements NftService {
     @Override
     public int selectNftsPagesCount() {
         int temp = nftDao.selectNftCount();
-        double count = (double) temp / (double) 4;
+        double count = (double) temp / (double) 8;
         double ceil = Math.ceil(count);
         return (int)ceil;
     }
@@ -90,6 +104,33 @@ public class NftServiceImpl implements NftService {
     public boolean updateNftLikes(Nft nft) {
         int flag = nftDao.updateNftLikesByNftId(nft);
         return flag == 1;
+    }
+
+    @Override
+    public ArrayList<FollowInfo> selectNftsByPages(int pageNumber, int userId) {
+        ArrayList<FollowInfo> followInfos = new ArrayList<>();
+        ArrayList<Nft> nfts = nftDao.selectNftByPageNumber(pageNumber-1,userId);
+
+        for (Nft nft : nfts) {
+            FollowInfo followInfo = new FollowInfo();
+
+            User user = userDao.selectUserByUserId(nft.getNftUserId());
+            UserDetail userDetail = userDetailDao.selectUserDetailByUserId(nft.getNftUserId());
+
+            followInfo.setNft(nft);
+            followInfo.setUser(user);
+            followInfo.setUserDetail(userDetail);
+            followInfos.add(followInfo);
+        }
+        return followInfos;
+    }
+
+    @Override
+    public int selectNftsOnMarketPagesCount(int userId) {
+        int temp = nftDao.selectNftOnMarketCount(userId);
+        double count = (double) temp / (double) 8;
+        double ceil = Math.ceil(count);
+        return (int)ceil;
     }
 
 }

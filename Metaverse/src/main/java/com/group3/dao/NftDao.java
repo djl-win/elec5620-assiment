@@ -69,4 +69,19 @@ public interface NftDao {
      * @return 1 or 0
      */
     int updateNftLikesByNftId(@Param("nft")Nft nft);
+
+    /**
+     * 查询8个市场中的nft
+     * @param pagenumber pageNumber
+     * @param userId userId
+     * @return NFTs
+     */
+    ArrayList<Nft> selectNftByPageNumber(@Param("pageNumber")int pagenumber, @Param("userId")int userId);
+
+    /**
+     * search count in nft table
+     * @param userId userId
+     * @return  count
+     */
+    int selectNftOnMarketCount( @Param("userId")int userId);
 }

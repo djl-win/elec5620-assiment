@@ -1,6 +1,7 @@
 package com.group3.service;
 
 import com.group3.domain.Nft;
+import com.group3.dto.FollowInfo;
 import com.group3.dto.OnSellMessage;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,4 +59,19 @@ public interface NftService {
      * @return true or false
      */
     boolean updateNftLikes(Nft nft);
+
+    /**
+     * paging nft in market
+     * @param pageNumber page number
+     * @param userId userId
+     * @return nfts
+     */
+    ArrayList<FollowInfo> selectNftsByPages(int pageNumber, int userId);
+
+    /**
+     * select Nfts On Market Pages Count
+     * @param userId userid
+     * @return page number
+     */
+    int selectNftsOnMarketPagesCount(int userId);
 }

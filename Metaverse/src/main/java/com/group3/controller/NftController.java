@@ -5,6 +5,7 @@ import com.group3.common.Code;
 import com.group3.common.Result;
 import com.group3.domain.Nft;
 import com.group3.domain.User;
+import com.group3.dto.FollowInfo;
 import com.group3.dto.OnSellMessage;
 import com.group3.service.NftService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,4 +140,36 @@ public class NftController {
     }
 
 
+    /**
+     * get 分页查询市场中的NFT信息，传入页数
+     * @param pageNumber 查询的页数
+     * @return 封装好的nft信息集合
+     */
+    @GetMapping("/market/{pageNumber}")
+    public Result getMarketNftByPageNumber(@PathVariable("pageNumber") int pageNumber, HttpServletRequest request){
+        //获取用户id
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
+
+        //执行查询操作
+        ArrayList<FollowInfo> nftList = nftService.selectNftsByPages(pageNumber,userId);
+        return new Result(nftList,Code.SELECT_OK,"success search");
+    }
+
+    /**
+     * get 查询市场中nft页数
+     * @return nft总页数
+     */
+    @GetMapping("/market/count")
+    public Result getNftOnMarketPageCount(HttpServletRequest request){
+        //获取用户id
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
+
+        //执行查询操作
+        int count = nftService.selectNftsOnMarketPagesCount(userId);
+        return new Result(count,Code.SELECT_OK,"success search");
+    }
 }

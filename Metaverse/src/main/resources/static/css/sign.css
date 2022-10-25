@@ -46,20 +46,19 @@
 
 .logindata {
     position: absolute;
-    top: 35%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 500px;
     height: 300px;
     box-sizing: border-box;
     overflow: hidden;
-    background: #111845a6;
-    box-shadow: 0 20px 50px rgb(23, 32, 90);
-    /*border: 2px solid #2a3cad;*/
+    /*background: #111845a6;*/
+    /*box-shadow: 0 20px 50px rgb(23, 32, 90);*/
     color: white;
     padding: 20px;
     font-family: Cambria, serif;
-    border-radius: 30px 30px 40px;
+    /*border-radius: 30px 30px 40px;*/
 }
 
 .tool {
@@ -259,8 +258,8 @@ body,
 }
 
 .verification__verify_btn {
-    padding: 0;
-    margin: 20px;
+
+    margin-left: 0;
     border: none;
     outline: none;
     stroke: none;
@@ -268,7 +267,7 @@ body,
     cursor: pointer;
     border-radius: 9px;
     height: 52px;
-    padding: 8px 16px;
+    width: 150px;
     font-size: 1.25rem;
 }
 
@@ -300,19 +299,16 @@ body,
 
 .verification__input {
     letter-spacing: 1.7px;
-    padding: 0;
-    margin: 0;
+    /*margin: 0;*/
     border: none;
     outline: none;
     stroke: none;
     box-shadow: none;
-    width: 150px;
-    height: 50px;
     transition: 0.2s 0s ease-out;
     width: 60px;
     height: 60px;
     border-radius: 9px;
-    padding: 16px 0;
+    padding-left: 3px;
     text-align: center;
     font-family: var(--font-family);
     font-size: 2rem;
@@ -425,17 +421,19 @@ body,
 }
 
 .verification {
+
+    margin-top: 3%;
+    margin-left: 2%;
     backdrop-filter: blur(500px);
     opacity: 0.8;
     overflow: hidden;
     background: #111845a6;
     box-shadow: 0 20px 50px rgb(23, 32, 90);
     border-radius: 30px 30px 40px;
-    color: var(--color-secondary);
+    color: white;
 }
 
 .verification__title {
-    margin-left: 2%;
     filter: blur(0px);
     font-family: "IBM Plex Sana Thai Looped", sans-serif;
     position: absolute;
@@ -456,9 +454,9 @@ body,
 }
 
 .verification__verify_btn {
-
-    background: var(--color-primary);
-    color: var(--color-light-gray);
+    /*background: var(--color-secondary);*/
+    /*background: var(--color-primary);*/
+    /*color: var(--color-light-gray);*/
 
 }
 
