@@ -18,7 +18,7 @@ const NFT = ({nft: {_id, image, createdBy, url, save}}) => {
     //1, [1, 2, 3] -> [1].length -> 1 -> !1 -> false -> !false -> true
     //4, [1, 2, 3] -> [].length -> 0 -> !0 -> true -> !true -> false
     // console.log(save);
-    const alreadySaved = !!(save?.filter((item) => item.createdBy._id === userInfo.sub))?.length;
+    const alreadySaved = !!(save?.filter((item) => item.createdBy._id === userInfo?.sub))?.length;
 
     const saveNFT = (id) => {
         if(!alreadySaved) {
@@ -70,10 +70,10 @@ const NFT = ({nft: {_id, image, createdBy, url, save}}) => {
                             {url && (
                                 <a href={url} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="flex gap-2 p-2 pl-4 pr-4 items-center bg-white font-bold text-black rounded-full opacity-60 hover:opacity-90 hover:shadow-md">
                                     <BsFillArrowUpRightCircleFill />
-                                    {/*{url.length > 21 ? url.slice(8, 21) : url.slice(8)}*/}
+                                    {/*{url.length > 15 ? `${url.slice(0, 15)}...` : url}*/}
                                 </a>
                             )}
-                            {createdBy?._id === userInfo.sub && (
+                            {createdBy?._id === userInfo?.sub && (
                                 <button type="button" className="p-2 font-bold text-base bg-white opacity-60 hover:opacity-90 rounded-3xl hover:shadow-md outlined-none" onClick={(e) => {
                                     e.stopPropagation();
                                     deleteNFT(_id);
