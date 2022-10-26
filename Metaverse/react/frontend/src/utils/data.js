@@ -1,3 +1,22 @@
+export const categories = [
+    {
+        name: 'Category_1',
+        image: 'https://cdn-icons-png.flaticon.com/512/4020/4020010.png',
+    },
+    {
+        name: 'Category_2',
+        image: 'https://cdn-icons-png.flaticon.com/512/4020/4020011.png',
+    },
+    {
+        name: 'Category_3',
+        image: 'https://cdn-icons-png.flaticon.com/512/4020/4020012.png',
+    },
+    {
+        name: 'Category_4',
+        image: 'https://cdn-icons-png.flaticon.com/512/4020/4020013.png',
+    },
+];
+
 export const userQuery = (userId) => {
     const query = `*[_type == "user" && _id == '${userId}']`;
 
