@@ -72,3 +72,66 @@ export const feedQuery = `*[_type == 'nft'] | order(_createAt desc) {
         },
     },
 }`;
+
+export const nftDetailQuery = (nftId) => {
+    const query = `*[_type == "nft" && _id == '${nftId}']{
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    title, 
+    about,
+    category,
+    url,
+    createdBy->{
+      _id,
+      userName,
+      image
+    },
+   save[]{
+      createdBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+    comments[]{
+      comment,
+      _key,
+      createdBy->{
+        _id,
+        userName,
+        image
+      },
+    }
+  }`;
+    return query;
+};
+
+export const nftDetailMoreNftQuery = (nft) => {
+    const query = `*[_type == "nft" && category == '${nft.category}' && _id != '${nft._id}' ]{
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    url,
+    createdBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
+      _key,
+      createdBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+  }`;
+    return query;
+};
