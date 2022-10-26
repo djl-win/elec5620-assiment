@@ -248,7 +248,7 @@ new Vue({
         forgetpas() {
             this.$message({
                 type: "info",
-                message: "功能尚未开发额😥",
+                message: "Not completed😥",
                 showClose: true
             })
         },
@@ -333,7 +333,7 @@ new Vue({
 
         //新增对话框
         handleClose(done) {
-            this.$confirm('确认关闭？')
+            this.$confirm('Confirm to close？')
                 .then(_ => {
                     done();
                 })

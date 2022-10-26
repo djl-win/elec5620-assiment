@@ -42,4 +42,46 @@ public interface NftDao {
      * @return 此用户正在出售的nft集合
      */
     ArrayList<Nft> selectAllNftOnSellByUserId(int userId);
+
+    /**
+     * search nft by nftid
+     * @param nftId nft id
+     * @return nft
+     */
+    Nft selectNftByNftId(@Param("nftid") int nftId);
+
+    /**
+     * paging nfts
+     * @param pageNumber page number
+     * @return 4 nfts by page
+     */
+    ArrayList<Nft> fetchNftByPageNumber(@Param("pageNumber")int pageNumber);
+
+    /**
+     * search count in nft table
+     * @return  count
+     */
+    int selectNftCount();
+
+    /**
+     * updateNftLikesByNftId
+     * @param nft nft
+     * @return 1 or 0
+     */
+    int updateNftLikesByNftId(@Param("nft")Nft nft);
+
+    /**
+     * 查询8个市场中的nft
+     * @param pagenumber pageNumber
+     * @param userId userId
+     * @return NFTs
+     */
+    ArrayList<Nft> selectNftByPageNumber(@Param("pageNumber")int pagenumber, @Param("userId")int userId);
+
+    /**
+     * search count in nft table
+     * @param userId userId
+     * @return  count
+     */
+    int selectNftOnMarketCount( @Param("userId")int userId);
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.FollowDao">
+
+    <resultMap id="followResultMap" type="Follow">
+        <id property="followId" column="follow_id"/>
+        <result property="followUserId" column="follow_userid"/>
+        <result property="followNftId" column="follow_nftid"/>
+    </resultMap>
+
+    <select id="findAllFollowsByUserId"  resultMap="followResultMap">
+        select follow_id,follow_userid,follow_nftid
+        from tb_follow
+        where follow_userid=#{userid}
+    </select>
+
+    <select id="findNumberOfNftFollowedByUserId" resultType="java.lang.Integer">
+        select count(follow_id)
+        from tb_follow
+        where follow_userid=#{userid}
+    </select>
+
+    <delete id="deleteFollowByFollowId">
+        DELETE FROM tb_follow
+        WHERE follow_id = #{followid}
+    </delete>
+
+    <select id="findAllFollowsByUserIdAndNftId" resultType="java.lang.Integer">
+        select count(follow_id)
+        from tb_follow
+        where follow_userid = #{userid} and follow_nftid = #{nftid}
+    </select>
+
+    <insert id="insertFollowByUserIdAndNftId">
+        insert into tb_follow (follow_userid, follow_nftid) values(#{userid}, #{nftid})
+    </insert>
+
+
+</mapper>
