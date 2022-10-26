@@ -32,8 +32,8 @@ export default {
             }
         },
         {
-            name: 'userID',
-            title: 'UserID',
+            name: 'userId',
+            title: 'UserId',
             type: 'string'
         },
         {
