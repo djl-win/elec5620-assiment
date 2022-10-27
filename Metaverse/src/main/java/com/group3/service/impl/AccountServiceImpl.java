@@ -4,6 +4,7 @@ import com.group3.dao.AccountDao;
 import com.group3.dao.UserDao;
 import com.group3.domain.Account;
 import com.group3.domain.Log;
+import com.group3.dto.FollowInfo;
 import com.group3.dto.WalletPageInfo;
 import com.group3.service.AccountService;
 import com.group3.service.LogService;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 @Service
@@ -124,4 +127,41 @@ public class AccountServiceImpl implements AccountService {
 
         return flag == 1;
     }
+
+
+    @Override
+    public boolean verifyWalletByPublicKey(FollowInfo followInfo, int userId) {
+
+        //1.get user public key, search table account by userid
+        Account account = accountDao.fetchByUserId(userId);
+
+        String pubkey = account.getAccountPublicKey();
+
+        //2.get nft signature
+        String nftSignature = followInfo.getNft().getNftSignature();
+
+        //3.encrypt signature by public key
+        try {
+            System.out.println(pubkey);
+            PublicKey publicKey = blockChainKeys.getPublicKey(pubkey);
+
+            String after =  blockChainKeys.encrypt(nftSignature, publicKey);
+
+            PrivateKey privateKey =  blockChainKeys.getPrivateKey(followInfo.getPrivateKey());
+
+            //4.decrypt signature by private key
+            String decrypt = blockChainKeys.decrypt(after, privateKey);
+
+            //5.verify
+            if(!decrypt.equals(nftSignature)){
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

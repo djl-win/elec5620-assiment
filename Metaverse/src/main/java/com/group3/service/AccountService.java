@@ -2,6 +2,7 @@ package com.group3.service;
 
 import com.group3.domain.Account;
 import com.group3.domain.Log;
+import com.group3.dto.FollowInfo;
 import com.group3.dto.WalletPageInfo;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,4 +38,12 @@ public interface AccountService {
      * @return 用户历史记录
      */
     WalletPageInfo<Log> selectHistoryByUsername(String username);
+
+    /**
+     * 通过用户的id，nft的签名，和公钥验证用户的私钥是否正确
+     * @param followInfo nft signature
+     * @param userId userid
+     * @return success or not
+     */
+    boolean verifyWalletByPublicKey(FollowInfo followInfo, int userId);
 }

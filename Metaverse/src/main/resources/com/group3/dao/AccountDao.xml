@@ -37,5 +37,10 @@
         WHERE account_avatar=#{username} and account_deleted=0;
     </update>
 
+    <select id="fetchByUserId" resultMap="accountResultMap">
+        Select account_Id, account_publickey, account_avatar, account_balance, account_deleted, account_userid
+        from tb_account
+        where account_userid=#{userid}
+    </select>
 
 </mapper>

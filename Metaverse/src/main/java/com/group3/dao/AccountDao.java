@@ -31,4 +31,11 @@ public interface AccountDao {
      * @return 影响行数
      */
     int updateBalanceByAvatar(@Param("amount") double amount, @Param("username") String username);
+
+    /**
+     * search account by userid
+     * @param userId userid
+     * @return account
+     */
+    Account fetchByUserId(@Param("userid")int userId);
 }

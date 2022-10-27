@@ -10,6 +10,7 @@ import java.util.ArrayList;
 //作为单独事务，不参与充值业务的回滚，充值失败也要添加到数据库，status设置为0
 @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = Exception.class)
 public interface LogService {
+
     /**
      *
      *  userPubKey 用户的公钥

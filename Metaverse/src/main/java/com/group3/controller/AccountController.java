@@ -6,6 +6,7 @@ import com.group3.common.Result;
 import com.group3.domain.Account;
 import com.group3.domain.Log;
 import com.group3.domain.User;
+import com.group3.dto.FollowInfo;
 import com.group3.dto.WalletPageInfo;
 import com.group3.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/wallets")
 public class AccountController {
-    //regx
-    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+    //regx 正数正则
+    private Pattern pattern = Pattern.compile("^(0\\.0*[1-9]+[0-9]*$|[1-9]+[0-9]*\\.[0-9]*[0-9]$|[1-9]+[0-9]*$)");
 
     @Autowired
     private AccountService accountService;
@@ -119,9 +120,29 @@ public class AccountController {
 
             return new Result(flag,code,msg);
         }else {
-            return new Result(null,Code.UPDATE_FAIL,"wrong input");
+            return new Result(null,Code.UPDATE_FAIL,"Wrong input, please enter positive integers");
         }
+    }
 
+    /**
+     * 验证用户钱包，通过private key, 加密解密
+     * @param followInfo nft和私钥等信息
+     * @param request 获取当前用户id和公钥
+     * @return success or not
+     */
+    @PostMapping("/verify")
+    public Result verifyWallet(@RequestBody FollowInfo followInfo,HttpServletRequest request){
+        //获取用户id
+        HttpSession session = request.getSession();
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
 
+        boolean flag = accountService.verifyWalletByPublicKey(followInfo,userId);
+
+        if(flag){
+            return new Result(true, Code.SELECT_OK,"success");
+        }else {
+            return new Result(false, Code.SELECT_FAIL, "Please enter the correct Private key!");
+        }
     }
 }

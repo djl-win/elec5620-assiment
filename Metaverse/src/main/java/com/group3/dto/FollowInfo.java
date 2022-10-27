@@ -9,13 +9,23 @@ import lombok.Data;
 @Data
 public class FollowInfo {
 
+    //nft owner follow list
     private Follow follow;
 
+    //nft owner user info
     private User user;
 
+    //nft owner nft
     private Nft nft;
 
+    //nft owner userDetail
     private UserDetail userDetail;
+
+    //nft owner privateKey
+    private String privateKey;
+
+    //buyer bid price
+    private double bid;
 
     //the number of this user followed
     private int followNumber;
