@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/Metaverse/javadoc" />
+    <option name="OPTION_SCOPE" value="private" />
+    <option name="LOCALE" value="en_AU" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

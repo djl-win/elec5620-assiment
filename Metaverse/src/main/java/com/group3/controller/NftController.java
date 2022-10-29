@@ -130,7 +130,7 @@ public class NftController {
      */
     @GetMapping("/count")
     public Result getNftPageCount(){
-        //执行查询操作
+        // search
         int count = nftService.selectNftsPagesCount();
         return new Result(count,Code.SELECT_OK,"success search");
     }

@@ -26,10 +26,10 @@ public class BlockChainKeysTest {
     @Test
     public void testCheckPubAndPriKeys() throws Exception {
 
-        //输入用户公钥
+
         PublicKey publicKey = blockChainKeys.getPublicKey("MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALZwhE4XxCV/KiD+OYSB0rONmYSZ7JF+gICJFhIsm+vYCnzEssBeW5Cw61xlxCVNOcu3/esToWUYT6sUBC5oDhMCAwEAAQ==");
 
-        //解密地址
+
         String after =  blockChainKeys.encrypt("good night!", publicKey);
 
         PrivateKey privateKey =  blockChainKeys.getPrivateKey("MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAtnCEThfEJX8qIP45hIHSs42ZhJnskX6AgIkWEiyb69gKfMSywF5bkLDrXGXEJU05y7f96xOhZRhPqxQELmgOEwIDAQABAkBERwHM9CoNWnUa2eoOxENlvVW6AZ0+qlhPQn7HGHjWH2bi2dBvZ8SgToWrFLd6LlZ60pBnHh/xg0+/L8oGN52hAiEA7t5JONH3vgwBCyv7UigaA2AkD3b5ou+ujGwtozAv+YMCIQDDhi0z4g/GcWBKTPf+FPqCYew4P/NNNpOtR7FwEzvEMQIhAJL/cpooBMkMxBum7lvp19BZ+vcVZZ0S2R0Lea5iejOXAiADw9uu+hVvrtM52w2TePfx9szDsIeQ3xIs7gp+rAAkoQIgSjOLfr7A31cJq5mJ1JvB5M0Pc9GVIbdPQGPkZZw4YAg=");

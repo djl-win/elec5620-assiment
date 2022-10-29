@@ -31,7 +31,7 @@ public class NftServiceImpl implements NftService {
     @Autowired
     private Base64ToFile base64ToFile;
 
-    //生成uuid工具类
+    //generate uuid util
     @Autowired
     private CreateUuid createUuid;
 
