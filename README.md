@@ -42,3 +42,9 @@ USYD 2022 S2 COMP5620 stage 2 Group 3 -- backend
 
 ### Website:  
 http://localhost:8080/5620/pages/mIndex.html
+
+### Note!!!
+You must modify the NftServiceImpl file in the impl folder under the service layer by changing the address in the generateNft method to "File download location/USYD-2022-S2-ELEC5620-Stage 2/front-end/CreatX/src/assets/ nftWorks/"
+
+##### Example:
+String nftImageUrl = "D:/USYD-2022-S2-ELEC5620-Stage 2/front-end/CreatX/src/assets/nftWorks/" + signature + ".png";
