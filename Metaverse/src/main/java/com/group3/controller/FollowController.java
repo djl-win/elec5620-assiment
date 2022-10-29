@@ -5,7 +5,6 @@ import com.group3.common.Result;
 import com.group3.domain.Nft;
 import com.group3.domain.User;
 import com.group3.dto.FollowInfo;
-import com.group3.dto.OnSellMessage;
 import com.group3.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

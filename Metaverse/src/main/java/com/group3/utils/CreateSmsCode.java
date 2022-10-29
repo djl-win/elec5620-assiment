@@ -10,8 +10,8 @@ public class CreateSmsCode {
 
     /**
      * If an error is reported, go check whether the user has detailed personal information, such as cell phone number
-     * @param tel
-     * @return
+     * @param tel telephone
+     * @return code of verification
      */
     public String createCode(String tel){
         int hash = tel.hashCode();

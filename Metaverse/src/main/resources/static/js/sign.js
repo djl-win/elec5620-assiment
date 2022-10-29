@@ -12,7 +12,7 @@ new Vue({
         };
         return {
 
-            //绑定验证码
+            //verification code
             VerificationEl: {
                 el1:"",
                 el2:"",
@@ -21,25 +21,25 @@ new Vue({
                 el5:"",
                 el6:"",
             },
-            //登录页面的显示
+            //login page visible
             showLoginForm: "block",
 
-            //验证码页面的显示
+            //verification code page visible
             VisibleVerification: "none",
 
-            //验证码图片地址（未开发）
+
             codeUrl: '#',
 
-            //新增表单的显示
+            //register page visible
             dialogVisible: false,
 
-            //登录表单
+            //login form
             loginForm: {
                 userPassword: "",
                 userUsername: "",
             },
 
-            //注册表单
+            //register form
             registerForm: {
                 userPassword: "",
                 userUsername: "",
@@ -52,7 +52,7 @@ new Vue({
 
             checked: false,
 
-            //规则
+            //rule
             rules: {
                 userUsername: [
                     {required: true, message: "Username cannot be empty", trigger: "blur"},
@@ -87,7 +87,7 @@ new Vue({
         var showRegister = location.href.split("=");
         this.dialogVisible = Boolean(showRegister[1]);
 
-        //挂载完成式，加载用户名密码
+        //after mounted loading username and password
         if (localStorage.getItem("news")) {
             this.loginForm = JSON.parse(localStorage.getItem("news"))
             this.checked = true
@@ -104,7 +104,7 @@ new Vue({
                 url: "/5620/users/?emailAddress=" + _this.registerForm.userDetailEmail
             }).then(function (res) {
                     // console.log(res.data)
-                    //响应状态码为40011
+                    //response code 40011
                     if (res.data.code === 40011) {
                         _this.$message({
                             message: res.data.msg,
@@ -127,9 +127,9 @@ new Vue({
                 });
             });
         },
-        //检验验证码
+        //verify verification code
         submitVerificationCode(form){
-            //拼接验证码
+            //Combined verification code
             const checkCode = this.VerificationEl.el1 + this.VerificationEl.el2 + this.VerificationEl.el3 + this.VerificationEl.el4 + this.VerificationEl.el5 + this.VerificationEl.el6;
             console.log(checkCode);
             console.log(checkCode.length)
@@ -151,13 +151,13 @@ new Vue({
                         url: "/5620/users/"+checkCode,
                     }).then(function (res) {
                             console.log(res.data)
-                            //响应状态码为40011
+                            //response code 40011
                             if (res.data.code === 40011) {
-                                //因为整合比较麻烦，spring需跨越，index页不同，跳转有些麻烦，在react中跨域即可，后期在调整！！
+                                //integration is comflex，spring needs cross domain，index page is different，redirect is complex，cross domain in react
                                 location.href = "http://localhost:3000/5620/pages/index.html?username=" + res.data.data;
                                 // location.href = "http://localhost:3000/5620/pages/index.html";
                             } else if (res.data.code === 40010) {
-                                //清空所有信息
+                                //clear
                                 _this.showLoginForm = "block";
                                 _this.VisibleVerification = "none";
                                 _this.VerificationEl.el1="";
@@ -188,7 +188,7 @@ new Vue({
         },
 
 
-        //登陆表单
+        //register page
         login(form) {
             var _this = this;
             this.$refs[form].validate((valid) => {
@@ -198,7 +198,7 @@ new Vue({
                         url: "/5620/users",
                         data: _this.loginForm
                     }).then(function (res) {
-                            //响应状态码为40011
+                            //response code 40011
                             if (res.data.code === 40011) {
                                 _this.showLoginForm = "none";
                                 _this.VisibleVerification = "block";
@@ -213,7 +213,7 @@ new Vue({
 
                                 // location.href = "/5620/pages/detail.html";
                             } else if (res.data.code === 40010) {
-                                //清空所有信息
+                                //clear
                                 _this.loginForm.userUsername = "";
                                 _this.loginForm.userPassword = "";
                                 _this.$message({
@@ -246,7 +246,7 @@ new Vue({
             }
         },
 
-        //忘记密码
+        //forget pas
         forgetpas() {
             this.$message({
                 type: "info",
@@ -255,7 +255,7 @@ new Vue({
             })
         },
 
-        //注册功能
+        //register function
         register(form) {
             var _this = this;
             this.$refs[form].validate((valid) => {
@@ -265,7 +265,7 @@ new Vue({
                         url: "/5620/users",
                         data: _this.registerForm
                     }).then(function (res) {
-                            //响应状态码为200
+                            //response code 10011
                             if (res.data.code === 10011) {
                                 // setToken(res.data.token);
                                 // localStorage.setItem("USERNAME", res.data.username);
@@ -274,9 +274,9 @@ new Vue({
                                     type: "success",
                                     showClose: true,
                                 })
-                                //dialogVisible设置为false
+                                //dialogVisible set to false
                                 _this.dialogVisible = false;
-                                //清空所有信息
+                                //clear
                                 _this.registerForm.userUsername = "";
                                 _this.registerForm.userPassword = "";
                                 _this.registerForm.checkPassword = "";
@@ -287,7 +287,7 @@ new Vue({
 
                             } else if (res.data.code === 60010) {
 
-                                //清空验证码
+                                //clear verification code
                                 _this.registerForm.mailCode = "";
                                 _this.$message({
                                     message: res.data.msg,
@@ -295,7 +295,7 @@ new Vue({
                                     showClose: true,
                                 })
                             }else if (res.data.code === 10010) {
-                                //清空所有信息
+                                //clear
                                 _this.registerForm.userUsername = "";
                                 _this.registerForm.userPassword = "";
                                 _this.registerForm.checkPassword = "";
@@ -312,7 +312,7 @@ new Vue({
                             }
                         }
                     ).catch((err) => {
-                        //清空所有信息
+                        //clear
                         _this.registerForm.userUsername = "";
                         _this.registerForm.userPassword = "";
                         _this.registerForm.checkPassword = "";
@@ -333,7 +333,7 @@ new Vue({
             });
         },
 
-        //新增对话框
+        //close dialog function
         handleClose(done) {
             this.$confirm('Confirm to close？')
                 .then(_ => {
