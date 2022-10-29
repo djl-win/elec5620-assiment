@@ -84,4 +84,17 @@ public interface NftDao {
      * @return  count
      */
     int selectNftOnMarketCount( @Param("userId")int userId);
+
+    /**
+     * trade nft
+     * @param nft nft info
+     * @return affect row number
+     */
+    int tradeNft(@Param("nft")Nft nft);
+
+    /**
+     * select rank info Order ByLike
+     * @return rank info
+     */
+    ArrayList<Nft> selectNftOrderByLike();
 }

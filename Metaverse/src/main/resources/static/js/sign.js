@@ -203,10 +203,12 @@ new Vue({
                                 _this.showLoginForm = "none";
                                 _this.VisibleVerification = "block";
 
-                                _this.$message({
-                                    message: "(Simulate phone verification code) You phone verification code is " + res.data.data,
+                                _this.$notify({
+                                    title:"Simulate phone verification code",
+                                    message: "You phone verification code is " + res.data.data,
                                     type: "success",
                                     showClose: true,
+                                    duration:0
                                 })
 
                                 // location.href = "/5620/pages/detail.html";

@@ -22,7 +22,7 @@ public class FollowController {
     private FollowService followService;
 
     /**
-     * get 查询该用户正在出售的nft 接口地址：http://localhost:8080/5620/follows/getFollowedNfts get请求
+     * get 查询该用户正在关注的nft 接口地址：http://localhost:8080/5620/follows/getFollowedNfts get请求
      * @param request 获取该用户关注的所有nft信息
      * @return 返回用户关注的所有nft信息，{follow,nft,userDetail}
      */
@@ -37,6 +37,7 @@ public class FollowController {
 
         return new Result(followInfos, Code.SELECT_OK,"success");
     }
+
 
     /**
      * delete cancel follow 接口地址：http://localhost:8080/5620/follows/cancelFollow delete请求

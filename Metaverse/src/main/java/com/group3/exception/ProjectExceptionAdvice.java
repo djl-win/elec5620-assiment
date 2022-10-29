@@ -32,7 +32,7 @@ public class ProjectExceptionAdvice {
         //operations
 
         //return info to web developer
-        return new Result(null, Code.BUSINESS_ERROR,"business exception");
+        return new Result(null, Code.BUSINESS_ERROR,ex.getMessage());
     }
 
     /**

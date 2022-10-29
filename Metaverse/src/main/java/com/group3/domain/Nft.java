@@ -22,4 +22,6 @@ public class Nft {
     private int nftVersion;
 
     private int nftUserId;
+
+    private UserDetail userDetail;
 }

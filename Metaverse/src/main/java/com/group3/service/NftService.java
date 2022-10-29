@@ -74,4 +74,10 @@ public interface NftService {
      * @return page number
      */
     int selectNftsOnMarketPagesCount(int userId);
+
+    /**
+     * search rank info order by likes
+     * @return rank info
+     */
+    ArrayList<Nft> getNftRank();
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.OrderDao">
+
+    <resultMap id="orderResultMap" type="Order">
+        <id property="orderId" column="order_id"/>
+        <result property="orderBuyerId" column="order_buyerid"/>
+        <result property="orderSellerId" column="order_sellerid"/>
+        <result property="orderNftId" column="order_nftid"/>
+        <result property="orderPrice" column="order_price"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderDate" column="order_date"/>
+    </resultMap>
+
+    <insert id="insertOrder">
+        INSERT INTO tb_order(
+            order_buyerid, order_sellerid, order_nftid, order_price, order_status, order_date)
+        VALUES (#{buyerid}, #{sellerid}, #{nftid}, #{bid}, 0, now());
+    </insert>
+
+    <select id="selectAllOrder" resultMap="orderResultMap">
+        select *
+        from tb_order
+    </select>
+
+    <select id="selectOrdersByBuyerId" resultMap="orderResultMap">
+        SELECT order_id, order_buyerid, order_sellerid, order_nftid, order_price, order_status, order_date
+        FROM tb_order
+        WHERE order_buyerid =#{userid}
+        order by order_date DESC
+    </select>
+
+    <select id="selectOrdersBySellerId" resultMap="orderResultMap">
+        SELECT order_id, order_buyerid, order_sellerid, order_nftid, order_price, order_status, order_date
+        FROM tb_order
+        WHERE order_sellerid =#{userid}
+        Order by order_date DESC
+    </select>
+
+    <select id="selectOrderByOrderId" resultMap="orderResultMap">
+        select order_id, order_buyerid, order_sellerid, order_nftid, order_price, order_status, order_date
+        from tb_order
+        where order_id = #{orderid}
+    </select>
+
+    <update id="updateOrderStatus">
+        UPDATE tb_order
+        SET order_status= #{order.orderStatus}
+        WHERE order_id= #{order.orderId}
+    </update>
+
+</mapper>

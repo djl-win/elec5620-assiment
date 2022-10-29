@@ -1,6 +1,5 @@
 package com.group3.service;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,18 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
-public class NftServiceTest {
+public class OrderServiceTest {
 
     @Autowired
-    private NftService nftService;
+    private OrderService orderService;
 
     @Test
-    public void testGenerateNft(){
-        System.out.println(nftService.generateNft("dsa",1));
-    }
+    public void testAgreeTransaction(){
+//        orderService.agreeTransaction(1,2,1,2);
 
-    @Test
-    public void testSelectNftOrderByLike(){
-        System.out.println(nftService.getNftRank());
     }
 }

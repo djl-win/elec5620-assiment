@@ -10,14 +10,14 @@ public interface AccountDao {
 
     /**
      * test connection
-     * @return
+     * @return account
      */
     Account selectTest();
 
     /**
      * 根据user表中的user_username查询用户钱包信息
      * @return 用户钱包信息
-     * @param username
+     * @param username username
      */
     Account fetchByUsername(@Param("username") String username);
 
@@ -38,4 +38,20 @@ public interface AccountDao {
      * @return account
      */
     Account fetchByUserId(@Param("userid")int userId);
+
+    /**
+     * deduct account balance by userid
+     * @param buyerId buyid
+     * @param bid price need to deduct
+     * @return 1 or 0
+     */
+    int updateBalanceByUserId(@Param("userid")int buyerId, @Param("bid")double bid);
+
+    /**
+     * increase account balance by userid
+     * @param buyerId buyid
+     * @param bid price need to increase
+     * @return 1 or 0
+     */
+    int increaseBalanceByUserId(@Param("userid")int buyerId, @Param("bid")double bid);
 }

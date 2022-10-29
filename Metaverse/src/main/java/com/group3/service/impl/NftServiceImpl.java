@@ -3,7 +3,6 @@ package com.group3.service.impl;
 import com.group3.dao.NftDao;
 import com.group3.dao.UserDao;
 import com.group3.dao.UserDetailDao;
-import com.group3.domain.Follow;
 import com.group3.domain.Nft;
 import com.group3.domain.User;
 import com.group3.domain.UserDetail;
@@ -131,6 +130,11 @@ public class NftServiceImpl implements NftService {
         double count = (double) temp / (double) 8;
         double ceil = Math.ceil(count);
         return (int)ceil;
+    }
+
+    @Override
+    public ArrayList<Nft> getNftRank() {
+        return nftDao.selectNftOrderByLike();
     }
 
 }

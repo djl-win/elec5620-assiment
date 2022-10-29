@@ -30,4 +30,5 @@ public interface FollowService {
      * @return flag
      */
     int newFollow(int userId, Nft nft);
+
 }

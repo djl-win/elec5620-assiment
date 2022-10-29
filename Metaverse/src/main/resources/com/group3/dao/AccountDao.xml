@@ -43,4 +43,16 @@
         where account_userid=#{userid}
     </select>
 
+    <update id="updateBalanceByUserId">
+        UPDATE tb_account
+        SET account_balance = account_balance - #{bid}
+        WHERE account_userid = #{userid};
+    </update>
+
+    <update id="increaseBalanceByUserId">
+        UPDATE tb_account
+        SET account_balance = account_balance + #{bid}
+        WHERE account_userid = #{userid};
+    </update>
+
 </mapper>

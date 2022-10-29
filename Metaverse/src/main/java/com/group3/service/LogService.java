@@ -2,6 +2,7 @@ package com.group3.service;
 
 
 import com.group3.domain.Log;
+import com.group3.dto.TransactionInfo;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,4 +29,19 @@ public interface LogService {
      * @return 用户充值的log
      */
     ArrayList<Log> selectChargeInfoByPubKey(String accountPublicKey);
+
+    /**
+     * log transaction
+     * @param sellerId seller id
+     * @param buyerId buyer id
+     * @param nftId buyer id
+     * @return affect row
+     */
+    boolean logTransaction(int sellerId, int buyerId, int nftId, double price);
+
+    /**
+     * find Transaction, table log ,type = 2, status = 1
+     * @return ArrayList<TransactionInfo>
+     */
+    ArrayList<TransactionInfo> findTransaction();
 }

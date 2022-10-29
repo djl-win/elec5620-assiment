@@ -14,6 +14,15 @@
         <result property="nftDeleted" column="nft_deleted"/>
         <result property="nftVersion" column="nft_version"/>
         <result property="nftUserId" column="nft_userid"/>
+        <!--association定义多对一或者一对一的关系-->
+        <association property="userDetail">
+            <id property="userDetailId" column="userdetail_id"/>
+            <result property="userDetailName" column="userdetail_name"/>
+            <result property="userDetailEmail" column="userdetail_email"/>
+            <result property="userDetailPhone" column="userdetail_phone"/>
+            <result property="userDetailDeleted" column="userdetail_deleted"/>
+            <result property="userDetailUserId" column="userdetail_userid"/>
+        </association>
     </resultMap>
 
 
@@ -54,12 +63,14 @@
         FROM tb_nft
         Where nft_id = #{nftid}
     </select>
+
     <select id="fetchNftByPageNumber" resultMap="nftResultMap">
         SELECT nft_id, nft_signature, nft_url, nft_price, nft_description, nft_likes, nft_deleted, nft_version, nft_userid
         FROM tb_nft
         order by nft_id
         LIMIT 8 offset #{pageNumber}*8;
     </select>
+
     <select id="selectNftCount" resultType="java.lang.Integer">
         SELECT count(nft_id)
         FROM tb_nft
@@ -79,9 +90,23 @@
         LIMIT 8 offset #{pageNumber}*8;
 
     </select>
+
     <select id="selectNftOnMarketCount" resultType="java.lang.Integer">
         SELECT count(nft_id)
         FROM tb_nft
         WHERE nft_version = 1 and nft_userid != #{userId}
+    </select>
+
+    <update id="tradeNft">
+        UPDATE tb_nft
+        SET nft_userid = #{nft.nftUserId}, nft_version = #{nft.nftVersion}, nft_price = #{nft.nftPrice}
+        WHERE nft_id= #{nft.nftId}
+    </update>
+
+    <select id="selectNftOrderByLike" resultMap="nftResultMap">
+        SELECT a.nft_id, a.nft_signature, a.nft_url, a.nft_price,
+               a.nft_description, a.nft_likes, a.nft_deleted, a.nft_version, a.nft_userid, b.userdetail_name
+        FROM tb_nft as a join tb_userdetail as b on a.nft_userid = b.userdetail_userid
+        order by a.nft_likes desc;
     </select>
 </mapper>

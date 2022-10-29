@@ -172,4 +172,28 @@ public class NftController {
         int count = nftService.selectNftsOnMarketPagesCount(userId);
         return new Result(count,Code.SELECT_OK,"success search");
     }
+
+    /** 接口地址：http://localhost:8080/5620/nfts/rank get请求
+     * get 查询nft排名
+     * @return nft info dto
+     */
+    @GetMapping("/rank")
+    public Result getNftRank(){
+        ArrayList<Nft> rank = nftService.getNftRank();
+        return new Result(rank,Code.SELECT_OK,"ok");
+    }
+
+    /**
+     * get 通过关键词查询nft 接口地址：http://localhost:8080/5620/follows/search/{keyword} get请求
+     * @param keyword 获取所有符合条件的nft
+     * @return 返回用户关注的所有nft信息，{follow,nft,userDetail}
+     */
+    @GetMapping("/search/{keyword}")
+    public Result searchByKeyWord(@PathVariable String keyword){
+
+//        ArrayList<FollowInfo> followInfos = nftService.fetchFollowsByKeyword(keyword);
+        System.out.println(keyword);
+//        return new Result(followInfos, Code.SELECT_OK,"success");
+        return null;
+    }
 }
