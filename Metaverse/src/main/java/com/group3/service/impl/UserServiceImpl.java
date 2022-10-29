@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
             int userIsOk = userDao.insertNewUser(user);
 
-            //不能正确插入到user表就返回，否则才进行userDetail的插入
+            //Return if it cannot be inserted correctly into the user table, otherwise only insert the userDetail
             if (userIsOk != 1 ) {
 
                 return false;

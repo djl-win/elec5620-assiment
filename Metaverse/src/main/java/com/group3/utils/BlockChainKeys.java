@@ -17,17 +17,17 @@ import java.security.spec.X509EncodedKeySpec;
 public class BlockChainKeys {
     private static final String ALGORITHM = "RSA";
 
-    //RSA加密明文大小限制
+    //RSA encryption plaintext size limit
     private static final int MAX_ENCRYPT_SIZE = 117;
 
-    //RSA解密明文大小限制
+    //RSA decryption plaintext size limit
     private static final int MAX_DECRYPT_SIZE = 128;
 
     private static final String UTF8 = StandardCharsets.UTF_8.name();
 
     /**
      *
-     * @return 生成的公钥和私钥
+     * @return Generated public and private keys
      * @throws Exception
      */
     public String[] generatePubAndPriKeys() throws Exception {
@@ -38,17 +38,17 @@ public class BlockChainKeys {
 
         keyPairGenerator.initialize(512);
 
-        //通过生成器生成密钥
+        //Generate key by generator
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
         PublicKey pub = keyPair.getPublic();
 
-        //转为字节数组
+        //Convert to byte arrays
         byte[] pubCode = pub.getEncoded();
         String pubString = Base64.encodeBase64String(pubCode);
 
         PrivateKey pri = keyPair.getPrivate();
 
-        //转为字节数组
+        //Convert to byte arrays
         byte[] priCode = pri.getEncoded();
         String priString = Base64.encodeBase64String(priCode);
 
@@ -62,28 +62,28 @@ public class BlockChainKeys {
     }
 
     /**
-     * 加密
-     * @param originalContext 需要加密的内容
-     * @param key 进行加密的key
-     * @return 加密后的结果,base64
+     * Encryption
+     * @param originalContext Content to be encrypted
+     * @param key The key for encryption
+     * @return The result after encryption, base64
      */
     public String encrypt(String originalContext, Key key) throws Exception, NoSuchAlgorithmException {
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE,key);
 
-        //BASE64加密后的字符串
+        //base64 encrypted string
         byte[] encryptBytes = doCodec(cipher,originalContext.getBytes(UTF8),MAX_ENCRYPT_SIZE);
         return Base64.encodeBase64String(encryptBytes);
     }
 
     /**
      * 解密
-     * @param encryptContext 加密后的内容
-     * @param key 进行解密的key
-     * @return 解密base64后的结果
+     * @param encryptContext Encrypted content
+     * @param key The key for decryption
+     * @return The result after decrypting base64
      */
     public String decrypt(String encryptContext, Key key) throws Exception, NoSuchAlgorithmException {
-        //BASE64解码后的字符串
+        //BASE64 decoded string
         byte[] decodeBase64 = Base64.decodeBase64(encryptContext);
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE,key);
@@ -92,37 +92,37 @@ public class BlockChainKeys {
     }
 
     /**
-     * 执行加密或解密
-     * @param cipher 解密还是加密
-     * @param bytes 原始数据
-     * @param maxSizeBlock 最大长度限制
-     * @return 加密或者解密后的字节数组
+     * Perform encryption or decryption
+     * @param cipher Decryption or encryption
+     * @param bytes Raw data
+     * @param maxSizeBlock Maximum length limit
+     * @return Encrypted or decrypted byte arrays
      */
     public byte[] doCodec(Cipher cipher, byte[] bytes, int maxSizeBlock) throws IllegalBlockSizeException, BadPaddingException, IOException {
 
         int inputSize = bytes.length;
 
-        //偏移量
+        //Offset
         int offset = 0;
 
         byte[] cache;
 
-        //第几次读取
+        //Read counters
         int i = 0;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        //分段处理传进来的字节数组
+        //Segmentation of incoming byte arrays
         while ((inputSize - offset) > 0){
 
             if ((inputSize - offset) > maxSizeBlock){
-                //maxsize为一次处理的字节长度
+                //maxsize is the length of bytes to be processed at one time
                 cache = cipher.doFinal(bytes, offset, maxSizeBlock);
             } else {
                 cache = cipher.doFinal(bytes, offset, inputSize - offset);
             }
 
-            //把每一次循环的的cache存入输出流
+            //Store the cache of each loop into the output stream
             baos.write(cache,0,cache.length);
 
             i++;
@@ -131,7 +131,7 @@ public class BlockChainKeys {
 
         }
 
-        //加解密的结果
+        //Results of encryption and decryption
         byte[] result = baos.toByteArray();
 
         baos.close();
@@ -140,38 +140,39 @@ public class BlockChainKeys {
     }
 
     /**
-     * 获取公钥
-     * publicKey 用户账户的公钥【地址值】
-     * @return 返回获取的公钥(对通过64加密后的的公钥字符串进行处理，解码base64，再转化为公钥对象)
+     * Obtain public key
+     * publicKey Public key of the user account [address value]
+     * @return Return the obtained public key (process the public key string through 64 encryption,
+     * decode base64, and then convert it into a public key object)
      */
     public PublicKey getPublicKey(String publicKey) throws Exception {
-        //对公钥字符串进行解码
+        //Decode the public key string
         byte[] decodeBase64 = Base64.decodeBase64(publicKey);
         //rule of public key is X509
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(decodeBase64);
-        //实例化工程keyFactory
+        //Instantiated projects: keyFactory
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
-        //获取公钥对象
+        //Get the public key object
         return keyFactory.generatePublic(x509EncodedKeySpec);
     }
 
     /**
-     * 获取私钥
-     * @param privateKey 经过base64编码后存储的私钥字符串
-     * @return 把编码后的私钥字符串进行处理，转化为私钥对象返回
+     * Obtaining the private key
+     * @param privateKey The private key string stored after base64 encoding
+     * @return Process the encoded private key string and return it as a private key object
      */
     public PrivateKey getPrivateKey(String privateKey) throws Exception {
 
-        //对私钥字符串进行解码
+        //Decode the private key string
         byte[] decodeBase64 = Base64.decodeBase64(privateKey);
 
         //rule of private key is PKCS8
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(decodeBase64);
 
-        //实例化工程keyFactory
+        //Instantiated projects: keyFactory
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
 
-        //获取私钥对象
+        //Get the public key object
         return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
 
     }

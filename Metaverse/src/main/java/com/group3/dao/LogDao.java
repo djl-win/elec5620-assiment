@@ -16,9 +16,9 @@ public interface LogDao {
     int transactionOperation(@Param("log") Log log);
 
     /**
-     * 通过用户的公钥查询他的充值信息，type=1，pubKey对应
-     * @param accountPublicKey 用户公钥
-     * @return log的集合
+     * Query the user's top-up information by his public key, type=1, use pubKey to correspond to.
+     * @param accountPublicKey User public key
+     * @return The set of log
      */
     ArrayList<Log> fetchChargeInfoListByPubKey(@Param("pubKey") String accountPublicKey);
 

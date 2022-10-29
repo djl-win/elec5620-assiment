@@ -94,7 +94,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public boolean agreeTransaction(int sellerId, int buyerId, int nftId, int orderId) {
-        //1.改绑nft，nft的userid改为buyer的，version设置为0，价格改为order中的价格。
+        //1. change the binding nft, nft userid to buyer's, version set to 0, the price to order in the price.
         Order order = orderDao.selectOrderByOrderId(orderId);
         Nft nft = nftDao.selectNftByNftId(nftId);
         nft.setNftUserId(buyerId);
@@ -106,20 +106,20 @@ public class OrderServiceImpl implements OrderService{
             throw new BusinessException(Code.BUSINESS_ERROR,"Transaction fail");
         }
 
-        //2.order改，status改为1，表示交易达成。
+        //2. order changed, status changed to 1, indicating that the transaction is completed.
         order.setOrderStatus(1);
         int flag1 = orderDao.updateOrderStatus(order);
         if(flag1 == 0) {
             throw new BusinessException(Code.BUSINESS_ERROR,"Transaction fail");
         }
 
-        //3.增加出售者余额
+        //3. Increase seller balance
         int flag3 = accountDao.increaseBalanceByUserId(sellerId, order.getOrderPrice());
         if(flag3 == 0){
             throw new BusinessException(Code.BUSINESS_ERROR,"Transaction fail");
         }
 
-        //4.增加日志信息，buyer的和seller都记录
+        //4. Add log information, buyer's and seller are recorded
 
         boolean flag4 = logService.logTransaction(sellerId, buyerId, nftId, order.getOrderPrice());
         if(!flag4){
@@ -131,7 +131,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void rejectTransaction(int buyerId, int orderId) {
-        //订单状态改变
+        //Order status change
         Order order = orderDao.selectOrderByOrderId(orderId);
         order.setOrderStatus(2);
 
@@ -139,7 +139,7 @@ public class OrderServiceImpl implements OrderService{
             throw new BusinessException(Code.BUSINESS_ERROR,"Transaction fail");
         }
 
-        //增加购买者余额
+        //Increase purchaser balance
         if(accountDao.increaseBalanceByUserId(buyerId, order.getOrderPrice()) == 0){
             throw new BusinessException(Code.BUSINESS_ERROR,"Transaction fail");
         }

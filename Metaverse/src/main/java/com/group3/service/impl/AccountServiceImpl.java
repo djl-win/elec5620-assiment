@@ -35,7 +35,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public WalletPageInfo<Log> selectHistoryByUsername(String username) {
 
-        //封装钱包所有人和操作日志信息的类
+        //Classes that encapsulate wallet owner and operation log information
         WalletPageInfo<Log> logWalletPageInfo = new WalletPageInfo<>();
 
         Account account = accountDao.fetchByUsername(username);
@@ -85,10 +85,10 @@ public class AccountServiceImpl implements AccountService {
     public boolean chargeAccount(double amount, String username){
         int flag = 0;
 
-        //日志记录
+        //Logging
         Log log = new Log();
 
-        //用户的公钥
+        //The user's public key
         String accountPublicKey = accountDao.fetchByUsername(username).getAccountPublicKey();
 
         log.setLogPubKeyUserA(accountPublicKey);
@@ -109,14 +109,14 @@ public class AccountServiceImpl implements AccountService {
             //first charge to account table
             //next record log
             flag = accountDao.updateBalanceByAvatar(amount,username);
-            //测试手工异常
+            //Test Exceptions
             //int a = 1/0;
 
         } catch (Exception e) {
 
-            //报错了就把status设置为0添加进去
+            //If the error is reported, set the status to 0 and add it
             e.printStackTrace();
-            //try catch之后异常不会抛出，手动设置。three types of rollback，（auto manual partial）
+            //Exceptions are not thrown after try catch and need to be set manually. Three types of rollback (auto manual partial)
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             log.setLogStatus(0);
             return false;

@@ -9,7 +9,7 @@ public class CreateSmsCode {
     private final String[] patch = {"000000","000000","0000","000","00","0",""};
 
     /**
-     * 报错的话，去检查用户是否有详细的个人信息，比如手机号
+     * If an error is reported, go check whether the user has detailed personal information, such as cell phone number
      * @param tel
      * @return
      */
@@ -27,9 +27,9 @@ public class CreateSmsCode {
     }
 
     /**
-     * 需加载进spring容器
+     * Needs to be loaded into the spring container
      *
-     * 从smsService的value = "VerifyCodeSpace"，的空间中取出生成的code值
+     * Take the generated code value from the value = "VerifyCodeSpace", space of the smsService
      * return null if not have relative value
      */
     @Cacheable(value = "VerifyCodeSpace", key = "#tel")

@@ -23,19 +23,23 @@ public class OrderController {
     private OrderService orderService;
 
     /**
-     * post make a bid 接口地址：http://localhost:8080/5620/orders/bid post请求
-     * @param followInfo 获取该用户当前点击的的nft信息,里面有竞价信息
-     * @return 返回成功与否
+     * post make a bid
+     * Interface address: http://localhost:8080/5620/orders/bid
+     * post request
+     * @param followInfo Get the nft information of the user's current click, which has bidding information
+     * @return Return Success or Failure
      */
     @PostMapping("/bid")
     public Result bidNft(@RequestBody FollowInfo followInfo, HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int buyerId = user.getUserId();
 
         System.out.println(followInfo);
-        //1.检查用户是否有足够金额 Insufficient balance 2.扣除相应金额 3.新增order记录 ok
+        //1. Check if the user has enough money Insufficient balance
+        //2. Deduct the corresponding amount
+        //3. Add order record
         int flag = orderService.newOrder(followInfo, buyerId);
 
         if(flag == 1){
@@ -51,17 +55,18 @@ public class OrderController {
 
     /**
      * search this user order{1 means bid order, 2 means quotation order}
-     * 接口地址：http://localhost:8080/5620/orders/searchOrderInfo/# get请求
+     * Interface address: http://localhost:8080/5620/orders/searchOrderInfo/#
+     * get request
      * @param request userid
      * @return yes or no
      */
     @GetMapping("/searchOrderInfo/{type}")
     public Result searchOrderInfo(@PathVariable("type")int type,HttpServletRequest request) {
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
 
-        //type = 1 bid , type = 2 quotaion
+        //type = 1 bid , type = 2 quotation
         if(type == 1 || type ==2){
             int userId = user.getUserId();
             ArrayList<OrderInfo> orders = orderService.findOrdersBySellerOrBuyer(type,userId);

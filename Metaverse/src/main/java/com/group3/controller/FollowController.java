@@ -22,17 +22,19 @@ public class FollowController {
     private FollowService followService;
 
     /**
-     * get 查询该用户正在关注的nft 接口地址：http://localhost:8080/5620/follows/getFollowedNfts get请求
-     * @param request 获取该用户关注的所有nft信息
-     * @return 返回用户关注的所有nft信息，{follow,nft,userDetail}
+     * Query the NFT this user is following
+     * Interface address: ttp://localhost:8080/5620/follows/getFollowedNfts
+     * get request
+     * @param request Get all the NFT information that this user is following
+     * @return Returns information about all NFTs that the user follows.{follow,nft,userDetail}
      */
     @GetMapping("/getFollowedNfts")
     public Result allInformation(HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
-        //执行查询操作
+        //Execute query operations
         ArrayList<FollowInfo> followInfos = followService.fetchFollowsByUserId(userId);
 
         return new Result(followInfos, Code.SELECT_OK,"success");
@@ -40,9 +42,11 @@ public class FollowController {
 
 
     /**
-     * delete cancel follow 接口地址：http://localhost:8080/5620/follows/cancelFollow delete请求
-     * @param followInfo 获取该用户当前点击的的nft信息
-     * @return 返回成功与否
+     * cancel follow
+     * Interface address: http://localhost:8080/5620/follows/cancelFollow
+     * delete request
+     * @param followInfo Get the NFT information of the user's current click
+     * @return Return Success or Failure
      */
     @DeleteMapping("/cancelFollow")
     public Result cancelFollow(@RequestBody FollowInfo followInfo){
@@ -56,19 +60,21 @@ public class FollowController {
     }
 
     /**
-     * post 新增关注 接口地址：http://localhost:8080/5620/follows
-     * @param request 请求
+     * post request
+     * follow
+     * Interface address：http://localhost:8080/5620/follows
+     * @param request Request
      * @param nft nft
      * @return true or false
      */
     @PostMapping
     public Result allInformation(@RequestBody Nft nft,HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
 
-        //执行查询操作 1用户已经follow了此NFT， 2成功， 3失败
+        //Execute query operation 1 user has followed this NFT, 2 success, 3 failure
         int flag = followService.newFollow(userId,nft);
         if(flag == 1){
             return new Result(null, Code.INSERT_FAIL,"You have already followed this nft");

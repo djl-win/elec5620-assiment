@@ -23,23 +23,23 @@ public interface NftDao {
     int insertNft(@Param("nft") Nft nft);
 
     /**
-     * 查询此用户所有nft，返回
-     * @param userId 用户id
-     * @return 此用户nft集合
+     * Query all nft for this user
+     * @param userId user id
+     * @return This user nft collection
      */
     ArrayList<Nft> selectAllNftsByUserId(@Param("userid")int userId);
 
     /**
-     * 修改NFT的价格和版本，version为 1，则为出售状态
-     * @param nft nft信息
-     * @return 此用户nft集合
+     * Modify the price and version of NFT, version is 1, then it is sold
+     * @param nft nft information
+     * @return This user nft collection
      */
     int modifyNftVersionAndPrice(@Param("nft")Nft nft);
 
     /**
-     * 查询正在出售的nft信息，version为1
-     * @param userId 用户id
-     * @return 此用户正在出售的nft集合
+     * Query the information of nft being sold with version 1
+     * @param userId User id
+     * @return The nft collection being sold of this user
      */
     ArrayList<Nft> selectAllNftOnSellByUserId(int userId);
 
@@ -71,7 +71,7 @@ public interface NftDao {
     int updateNftLikesByNftId(@Param("nft")Nft nft);
 
     /**
-     * 查询8个市场中的nft
+     * Inquire about 8 nfts in the market
      * @param pagenumber pageNumber
      * @param userId userId
      * @return NFTs

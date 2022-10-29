@@ -3,11 +3,11 @@ package com.group3.dto;
 import lombok.Data;
 
 /**
- * 用户登录信息的类
+ * Classes for user login information
  */
 @Data
 public class SmsMessage {
-    //或者用userDetail
+    //Or use userDetail
     private String telephone;
 
     private String code;

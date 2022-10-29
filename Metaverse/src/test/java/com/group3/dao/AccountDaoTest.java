@@ -25,7 +25,7 @@ public class AccountDaoTest {
     }
 
     /**
-     * 测试用户是否已经创建钱包？
+     * Test if the user has created a wallet?
      */
     @Test
     public void testFetchByUsername(){
@@ -33,7 +33,7 @@ public class AccountDaoTest {
     }
 
     /**
-     * 测试是否可以插入数据
+     * Test if data can be inserted
      */
     @Test
     public void testInsertWalletByUsername(){
@@ -48,7 +48,7 @@ public class AccountDaoTest {
     }
 
     /**
-     * 测试是否可以充值成功
+     * Test if you can recharge successfully
      */
     @Test
     public void testUpdateBalanceByAvatar(){

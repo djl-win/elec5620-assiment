@@ -38,16 +38,16 @@ public class NftServiceImpl implements NftService {
     @Override
     public Boolean generateNft(String base64, int userId) {
 
-        //新建一个uuid作为nft的唯一标识符号
+        //Create a new uuid as nft's unique identifier number
         String signature = createUuid.newUuid();
 
-        //文件生成的目录
+        //Directory for file generation
         String nftImageUrl = "D:/front-end/hkzf/src/assets/nftWorks/" + signature + ".png";
 
-        //1.把base64转为图片保存到本地，并返回地址值
+        //1. convert base64 to image and save it locally, and return the address value
         base64ToFile.saveBase64(base64,nftImageUrl);
 
-        //2.把地址值等信息，传入到数据库
+        //2. Transfer the address value and other information to the database
         Nft nft = new Nft();
         nft.setNftSignature(signature);
         nft.setNftUrl(signature + ".png");

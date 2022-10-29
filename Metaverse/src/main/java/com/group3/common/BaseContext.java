@@ -1,7 +1,7 @@
 package com.group3.common;
 
 /**
- * 单线程封装用户信息，简化session的验证
+ * Single-threaded encapsulation of user information to simplify session validation
  */
 public class BaseContext {
 }

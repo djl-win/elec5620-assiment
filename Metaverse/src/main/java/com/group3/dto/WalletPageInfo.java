@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 
-//登录钱包页面返回的信息，用户钱包信息，和充值历史
+//Information returned from the login wallet page, including user wallet information, and top-up history
 @Data
 public class WalletPageInfo <T>{
 

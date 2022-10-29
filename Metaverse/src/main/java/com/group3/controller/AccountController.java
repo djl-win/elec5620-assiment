@@ -19,16 +19,18 @@ import java.util.regex.Pattern;
 @RestController
 @RequestMapping("/wallets")
 public class AccountController {
-    //regx 正数正则
+    //regx Regular expressions for positive numbers
     private Pattern pattern = Pattern.compile("^(0\\.0*[1-9]+[0-9]*$|[1-9]+[0-9]*\\.[0-9]*[0-9]$|[1-9]+[0-9]*$)");
 
     @Autowired
     private AccountService accountService;
 
     /**
-     * 根据用户名查询,是否存在此账户
-     *  username 前端传入的用户名
-     * @return 存在此用户则返回40011code，返回用户钱包的信息，前端转向前端具体钱包信息的页面；不存在则返回40010，前端转向创建钱包的页面
+     * Search by username to see if this account exists
+     *  username The username passed in from the front end
+     * @return If this user exists, 40011 code is returned, which returns the user's wallet information,
+     * and the front-end moves to the front-end specific wallet information page;
+     * if it does not exist, 40010 is returned, and the front-end moves to the wallet creation page
      */
     @GetMapping
     public Result checkHistory( HttpServletRequest request){
@@ -45,9 +47,11 @@ public class AccountController {
     }
 
     /**
-     * 根据用户名查询,是否存在此账户
-     *  username 前端传入的用户名
-     * @return 存在此用户则返回40011code，返回用户钱包的信息，前端转向前端具体钱包信息的页面；不存在则返回40010，前端转向创建钱包的页面
+     * Search by username to see if this account exists
+     *  username The username passed in from the front end
+     * @return If this user exists, 40011 code is returned, which returns the user's wallet information,
+     * and the front-end moves to the front-end specific wallet information page;
+     * if it does not exist, 40010 is returned, and the front-end moves to the wallet creation page
      */
     @PostMapping
     public Result checkExistAccount(HttpServletRequest request){
@@ -65,9 +69,9 @@ public class AccountController {
 
 
     /**
-     * 根据前端传过来的用户名，帮助用户自动创建钱包
-     * username token中的username
-     * @return 用户的私钥
+     * Helps users create wallets automatically based on the username passed from the front-end
+     * username The username in token
+     * @return The user's private key
      */
     @RequestMapping("/create")
     @PutMapping
@@ -85,19 +89,20 @@ public class AccountController {
     }
 
     /**
-     * 接受前端传入的amount金额，帮助用户进行充值操作
-     * @param input (前端传入的充值数量，和用户的用户名)
-     * @return 成功与否
+     * Accept the amount passed in from the front-end and help the user to perform the recharge operation
+     * @param input (The number of recharges passed in from the front end, and the user's username)
+     * @return Success or Failure
      */
     @PutMapping
     public Result increaseBalance(@RequestBody String input, HttpServletRequest request){
 
         JSONObject jsonObject = JSONObject.parseObject(input);
 
-        //这里可以判断字符串是不是由数字组成的，不是的话就直接返回错误代码，
+        //Here you can determine whether the string is made up of numbers or not,
+        // and return the error code directly if it is not.
         String originalAmount = jsonObject.getString("amount");
 
-        //amount表中的avatar是和username一样的，直接匹配就行
+        //The avatar in the amount table is the same as username, just match it directly
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         String username  = user.getUserUsername();
@@ -125,14 +130,14 @@ public class AccountController {
     }
 
     /**
-     * 验证用户钱包，通过private key, 加密解密
-     * @param followInfo nft和私钥等信息
-     * @param request 获取当前用户id和公钥
+     * Verify the user's wallet with private key, encrypted and decrypted
+     * @param followInfo Information such as nft and private key
+     * @param request Get the current user id and public key
      * @return success or not
      */
     @PostMapping("/verify")
     public Result verifyWallet(@RequestBody FollowInfo followInfo,HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();

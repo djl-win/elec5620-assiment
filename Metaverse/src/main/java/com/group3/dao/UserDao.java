@@ -15,8 +15,9 @@ public interface UserDao {
 
 
     /**
-     * 这样的查询效率极低，是全表扫描的状态，扫描完username 扫描email 扫描 phone
-     * 优化在username建立索引，通过username查询完之后，
+     * Such a query is extremely inefficient because it is a full table scan.
+     * 1.scan username. 2. scan email 3.scan phone
+     * Optimization: Create an index at username, and query through username.
      * @param user
      * @param userDetail
      * @return
@@ -24,7 +25,7 @@ public interface UserDao {
     String[] checkAnySameValue(@Param("user") User user, @Param("userDetail") UserDetail userDetail);
 
     /**
-     * 注册功能
+     * Registration function
      * @param user
      * @param
      * @return
@@ -32,12 +33,12 @@ public interface UserDao {
     int insertNewUser(@Param("user") User user);
 
     /**
-     * 按用户名查找
+     * Search by username
      */
     int selectByUserName(@Param("user_username")String username);
 
     /**
-     * 插入userdetail
+     * Insert user detail
      * @param userDetail
      * @param userid
      * @return

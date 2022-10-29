@@ -33,7 +33,8 @@ public class MailSendUtil{
 
 
     //put mail code to cache, 300s expired
-    //这个方法不能被trim，因为aop还没拦截，就把他存进去缓存了，要实现的话，拦截上一届controller，就先不修改了
+    //This method can not be trim, because the aop has not been intercepted, it is stored in the cache,
+    // to achieve the words, intercept the last controller, it is not modified first
     @CachePut(value = "MailCodeSpace", key = "#mailAddress")
     public String sentMailCode(String mailAddress) {
         String mailCodeInCache = null;

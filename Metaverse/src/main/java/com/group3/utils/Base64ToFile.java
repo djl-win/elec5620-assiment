@@ -6,24 +6,24 @@ import sun.misc.BASE64Decoder;
 import java.io.*;
 
 /**
- * 生成的文件保存到了d盘images里
+ * The generated files are saved to the images folder in the D drive
  */
 @Component
 public class Base64ToFile {
     /**
-     * 工具类，base64转文件并保存到本地
-     * @param base64 传入的base64数据
-     * @param filePath 文件要保存的地址
+     * Tool class, base64 to file and save to local
+     * @param base64 Incoming base64 data
+     * @param filePath Address where the file is to be saved
      *
-     * @return 文件所保存的地址url
+     * @return The address url where the file is saved
      */
     public boolean saveBase64(String base64, String filePath){
 
-        //去除base64前面部分(可优化，有的时候不一定是png格式)
+        //Remove the front part of base64 (can be optimized, sometimes not necessarily in png format)
         String newBase64 = base64.replace("data:image/png;base64,", "").replace("event: newImage\n" +
                 "id: 1\n" +
                 "data:", "");
-        //判断文件夹是否存在
+        //Determine if a folder exists
         File outputFile = new File(filePath);
 
         File fileP = outputFile.getParentFile();
@@ -35,16 +35,16 @@ public class Base64ToFile {
         BASE64Decoder decoder = new BASE64Decoder();
         OutputStream out = null;
         try {
-            // Base64解码,对字节数组字符串进行Base64解码并生成文件
+            // Decode the byte array string using Base64 and generate the file
             byte[] byt = decoder.decodeBuffer(newBase64);
             for (int i = 0, len = byt.length; i < len; ++i) {
-                // 调整异常数据
+                // Adjusting abnormal data
                 if (byt[i] < 0) {
                     byt[i] += 256;
                 }
             }
             InputStream input = new ByteArrayInputStream(byt);
-            // 生成指定格式的文件
+            // Generate a file in the specified format
             out = new FileOutputStream(filePath);
             byte[] buff = new byte[1024];
             int len;

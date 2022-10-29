@@ -12,30 +12,30 @@ public interface NftService {
 
     /**
      *
-     * @param base64 nft的base64编码数据
+     * @param base64 Base64 encoded data for nft
      * @param userId
-     * @return 成功或失败
+     * @return Success or failure
      */
     Boolean generateNft(String base64, int userId);
 
 
     /**
-     * 查询此用户所有nft，返回
-     * @param userId 用户id
-     * @return 此用户nft集合
+     * Query all nft for this user
+     * @param userId User id
+     * @return This user nft collection
      */
     ArrayList<Nft> selectAll(int userId);
 
     /**
-     * 出售nft，version设置为1，价格设置为想要的。
-     * @param nft 要修改的信息
+     * Sell nft, version set to 1, price set to wanted.
+     * @param nft Information to be modified
      */
     Boolean pushNft(Nft nft);
 
     /**
-     * 查询正在出售的nft信息
-     * @param userId 用户id
-     * @return 返回前端的消息集合
+     * Check the information of nft being sold
+     * @param userId User id
+     * @return Returns a collection of messages from the front-end
      */
     ArrayList<OnSellMessage> selectAllNftOnSell(int userId);
 

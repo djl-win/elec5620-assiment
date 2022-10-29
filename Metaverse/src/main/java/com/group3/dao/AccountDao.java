@@ -4,7 +4,7 @@ import com.group3.domain.Account;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-//mapperscan替换也可
+//Replacing it with mapperscan is also possible.
 @Mapper
 public interface AccountDao {
 
@@ -15,8 +15,8 @@ public interface AccountDao {
     Account selectTest();
 
     /**
-     * 根据user表中的user_username查询用户钱包信息
-     * @return 用户钱包信息
+     * Query user wallet information based on user_username in user table
+     * @return User Wallet Information
      * @param username username
      */
     Account fetchByUsername(@Param("username") String username);
@@ -25,10 +25,10 @@ public interface AccountDao {
 
 
     /**
-     * 为用户进行充值操作
-     * @param amount 要充值的金额
-     * @param username 用户的avatar,account表中的avatar就是username
-     * @return 影响行数
+     * Performing top-up operations for users
+     * @param amount Amount to be recharged
+     * @param username User's avatar. The avatar in the account table is the username.
+     * @return Number of rows affected
      */
     int updateBalanceByAvatar(@Param("amount") double amount, @Param("username") String username);
 

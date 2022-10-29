@@ -14,9 +14,9 @@ public class CreateMailCode {
     }
 
     /**
-     * 需加载进spring容器
+     * Needs to be loaded into the spring container
      *
-     * 从smsService的value = "VerifyCodeSpace"，的空间中取出生成的code值
+     * Retrieve the generated code value from the value = "VerifyCodeSpace" space of the smsService
      * return null if not have relative value
      */
     @Cacheable(value = "MailCodeSpace", key = "#mailAddress")

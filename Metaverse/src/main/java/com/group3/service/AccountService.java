@@ -10,37 +10,37 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AccountService {
 
     /**
-     * 根据控制层传过来的用户名，查询用户是否存在
-     * @param username user表中的user_username
-     * @return 返回用户信息，空则null
+     * Query the existence of the user based on the user name passed from the control layer
+     * @param username user_username in user table
+     * @return Return user information, null if empty
      */
     Account selectAccountByUsername(String username);
 
     /**
-     * 根据控制层传过来的用户名，帮助用户创建钱包
-     * @param username 用户名
-     * @return 用户私钥
+     * Help the user create a wallet based on the username passed through the control layer
+     * @param username User Name
+     * @return User Private Key
      */
     String createWalletByUsername(String username);
 
 
     /**
      *
-     * @param amount 用户要充值的金额
-     * @param username 用户的avatar
-     * @return 改变的行数
+     * @param amount Amount to be topped up by the user
+     * @param username User's avatar
+     * @return Number of rows changed
      */
     boolean chargeAccount(double amount, String username);
 
     /**
-     * 查询用户历史记录信息
-     * @param username 用户名
-     * @return 用户历史记录
+     * Query user history information
+     * @param username User Name
+     * @return User History Log
      */
     WalletPageInfo<Log> selectHistoryByUsername(String username);
 
     /**
-     * 通过用户的id，nft的签名，和公钥验证用户的私钥是否正确
+     * Verify that the user's private key is correct by the user's id, nft signature, and public key
      * @param followInfo nft signature
      * @param userId userid
      * @return success or not

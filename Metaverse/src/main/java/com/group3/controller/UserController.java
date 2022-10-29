@@ -47,17 +47,20 @@ public class UserController {
         boolean flag = login != null;
 
         if (flag) {
-            //获取当前用户手机号通过id，放入缓存
+            //Get the current user's cell phone number by id and put it into the cache
             String phone = userService.getPhone(login.getUserId());
 
-            //手机号存入session，传递给下一个校验验证码的方法，因为校验验证码的操作，没有前端传入的手机号
+            //The cell phone number is stored in the session and passed to
+            // the next method of checking the verification code,
+            // because the operation of checking the verification code,
+            // there is no front-end incoming cell phone number
             HttpSession session = request.getSession();
             session.setAttribute("userPhone", phone);
 
-            //CODE 可以发送给用户，此处直接返回data
+            //CODE can be sent to the user, where it returns data directly
             String newCode = smsSendUtil.sentCode(phone);
 
-            //发送code到返回值
+            //Send code to return value
             return new Result(newCode,40011,"login successfully, next to enter the code");
         }
 
@@ -70,7 +73,8 @@ public class UserController {
     @GetMapping("{inputCode}")
     public Result checkInputCode(@PathVariable String inputCode, HttpServletRequest request){
 
-        //安全问题未解决，限制用户获取验证码次数，以及验证码过期时间
+        //Unresolved security issues, limiting the number of times users can get the verification code,
+        // and the expiration time of the verification code
 
         SmsMessage smsMessage = new SmsMessage();
 
@@ -85,7 +89,7 @@ public class UserController {
 
         //if true code, put user to session to release interceptor
         if(flag){
-            //登录后存入session，可用缓存优化
+            //Sessions stored after login, available cache optimization
             User user = userService.getUserByPhone(userPhone);
             session.setAttribute("user", user);
 
@@ -120,8 +124,8 @@ public class UserController {
     public Result signUp(@RequestBody String input){
 
 
-        //使用阿里巴巴 的 fastjson 获取mailcode
-        //常用api https://blog.csdn.net/weixin_41251135/article/details/110231280
+        //Use Alibaba's fastjson to get email verification code
+        //Commonly used api: https://blog.csdn.net/weixin_41251135/article/details/110231280
         JSONObject jsonObject = JSONObject.parseObject(input);
 
         String mailCode = jsonObject.getString("mailCode");
@@ -132,11 +136,11 @@ public class UserController {
 
         RegisterInfo registerInfo = new RegisterInfo();
 
-        //封装mail code
+        //Package mail code
         registerInfo.setMailCode(mailCode);
-        //封装user
+        //Package user
         registerInfo.setUser(user);
-        //封装user detail
+        //Package user detail
         registerInfo.setUserDetail(userDetail);
 
         String email = registerInfo.getUserDetail().getUserDetailEmail();
@@ -146,7 +150,7 @@ public class UserController {
         //first check the mail code
         boolean check = mailSendUtil.checkMailCode(email,checkCode);
 
-        //正确则进行下一步操作, wrong code return 60010
+        //If correct, proceed to the next step, wrong code return 60010
         if(!check){
             return new Result(false,Code.CODE_FAIL,"Please check you mail code!");
         }

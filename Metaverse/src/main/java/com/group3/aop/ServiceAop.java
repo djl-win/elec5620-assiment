@@ -87,7 +87,8 @@ public class ServiceAop {
 
         return p.proceed(args);
     }
-//    这个方法不能被trim，因为aop还没拦截，就把他存进去缓存了，要实现的话，拦截上一届controller，就先不修改了
+//    This method can not be trimmed (because the aop has not been intercepted), so it is stored in the cache.
+//    To implement it, you need to intercept the last controller, so let's not modify it.
 //    /**
 //     * process login info, subtract empty space
 //     */

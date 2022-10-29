@@ -23,28 +23,30 @@ public class NftController {
     private NftService nftService;
 
     /**
-     * 帮助用户创建nft，并保存到数据库url地址  接口地址：http://localhost:8080/5620/nfts/createNft  json数据
-     * @param input nft的base64编码 {'nftBase64'：data}
-     * @return 返回给前台创建成功信息，或失败  10011-OK 10010-Fail
+     * Help users create nft and save it to the database url address
+     * Interface Address: http://localhost:8080/5620/nfts/createNft
+     * json data
+     * @param input Base64 encoding of nft {'nftBase64'：data}
+     * @return Returns a success or failure message to the frontend: 10011-OK, 10010-Fail
      */
     @PostMapping("/createNft")
     public Result createNewNft(@RequestBody String input, HttpServletRequest request){
 
         JSONObject jsonObject = JSONObject.parseObject(input);
 
-        //获取数值，不封装了
+        //Get the value, not encapsulated
         String base64 = jsonObject.getString("nftBase64");
 
-        //判断是否为空值（为空直接返回错误信息）
+        //Determine if the value is null (null returns an error message directly)
         if(base64 == null || "".equals(base64)){
             return new Result(null, Code.INSERT_FAIL,"Empty data, please retry");
         }
 
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
-        //判断是否插入成功
+        //Determine if the insertion is successful
         Boolean flag = nftService.generateNft(base64, userId);
 
         if(flag){
@@ -55,26 +57,30 @@ public class NftController {
     }
 
     /**
-     * get 请求查询此用户所有nft信息 接口地址：http://localhost:8080/5620/nfts  get请求
-     * @param request 获取用户id的集合
-     * @return 封装好的nft信息集合
+     * get request
+     * Query all nft information for this user
+     * Interface Address: http://localhost:8080/5620/nfts
+     * @param request Get the set of user ids
+     * @return Wrapped nft information collection
      */
     @GetMapping
     public Result setMailVerificationCode(HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
-        //执行查询操作
+        //Execute query operations
         ArrayList<Nft> nftList = nftService.selectAll(userId);
 
         return new Result(nftList,Code.SELECT_OK,"success search all nfts of this user");
     }
 
     /**
-     * put 挂售此NFT,price设置为想要修改的价格，把version设置为1 接口地址：http://localhost:8080/5620/nfts/sellNft  put请求
-     * @param nft 要挂售的nft的信息
-     * @return 成功出售与否
+     * put request
+     * List this NFT, price set to the price you want to modify, set the version to 1
+     * Interface Address: http://localhost:8080/5620/nfts/sellNft
+     * @param nft Information about the nft to be listed
+     * @return Successful sale or not
      */
     @PutMapping("/sellNft")
     public Result sellNft(@RequestBody Nft nft){
@@ -87,37 +93,40 @@ public class NftController {
     }
 
     /**
-     * get 查询该用户正在出售的nft 接口地址：http://localhost:8080/5620/nfts/onSell get请求
-     * @param request 获取用户id的集合
-     * @return 返回用户正在出售的商品信息
+     * get request
+     * Check the nft being sold by this user
+     * Interface address: http://localhost:8080/5620/nfts/onSell
+     * @param request Get the set of user ids
+     * @return Return information about products being sold by the user
      */
     @GetMapping("/onSell")
     public Result onSell(HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
-        //执行查询操作
+        //Execute query operations
         ArrayList<OnSellMessage> onSell = nftService.selectAllNftOnSell(userId);
         return new Result(onSell,Code.SELECT_OK,"success");
     }
 
     /**
-     * get 分页查询NFT信息，传入页数
-     * @param pageNumber 查询的页数
-     * @return 封装好的nft信息集合
+     * get request
+     * Paging query NFT information, pass in the number of pages
+     * @param pageNumber Number of pages queried
+     * @return Wrapped nft information collection
      */
     @GetMapping("{pageNumber}")
     public Result getNftByPageNumber(@PathVariable("pageNumber") int pageNumber){
-        //执行查询操作
+        //Execute query operations
         ArrayList<Nft> nftList = nftService.selectNftsByPages(pageNumber);
 
         return new Result(nftList,Code.SELECT_OK,"success search");
     }
 
     /**
-     * get 查询nft页数
-     * @return nft总页数
+     * get Query nft page number
+     * @return total pages of nft
      */
     @GetMapping("/count")
     public Result getNftPageCount(){
@@ -128,7 +137,7 @@ public class NftController {
 
     /**
      * get NFT likes + 1
-     * @return nft总页数
+     * @return total pages of nft
      */
     @PostMapping("/likes")
     public Result handleNftLikes(@RequestBody Nft nft){
@@ -141,40 +150,42 @@ public class NftController {
 
 
     /**
-     * get 分页查询市场中的NFT信息，传入页数
-     * @param pageNumber 查询的页数
-     * @return 封装好的nft信息集合
+     * get request
+     * Paging query for NFT information in the market, pass in the number of pages
+     * @param pageNumber Number of pages queried
+     * @return Wrapped nft information collection
      */
     @GetMapping("/market/{pageNumber}")
     public Result getMarketNftByPageNumber(@PathVariable("pageNumber") int pageNumber, HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
 
-        //执行查询操作
+        //Execute query operations
         ArrayList<FollowInfo> nftList = nftService.selectNftsByPages(pageNumber,userId);
         return new Result(nftList,Code.SELECT_OK,"success search");
     }
 
     /**
-     * get 查询市场中nft页数
-     * @return nft总页数
+     * get Query the number of nft pages in the market
+     * @return nft total pages
      */
     @GetMapping("/market/count")
     public Result getNftOnMarketPageCount(HttpServletRequest request){
-        //获取用户id
+        //Get user id
         HttpSession session = request.getSession();
         User user = (User)session.getAttribute("user");
         int userId = user.getUserId();
 
-        //执行查询操作
+        //Execute query operations
         int count = nftService.selectNftsOnMarketPagesCount(userId);
         return new Result(count,Code.SELECT_OK,"success search");
     }
 
-    /** 接口地址：http://localhost:8080/5620/nfts/rank get请求
-     * get 查询nft排名
+    /** Interface address: http://localhost:8080/5620/nfts/rank
+     * get request
+     * get Check nft ranking
      * @return nft info dto
      */
     @GetMapping("/rank")
@@ -184,9 +195,11 @@ public class NftController {
     }
 
     /**
-     * get 通过关键词查询nft 接口地址：http://localhost:8080/5620/follows/search/{keyword} get请求
-     * @param keyword 获取所有符合条件的nft
-     * @return 返回用户关注的所有nft信息，{follow,nft,userDetail}
+     * get request
+     * Search nft by keyword
+     * Interface address: http://localhost:8080/5620/follows/search/{keyword}
+     * @param keyword Get all eligible nft
+     * @return Returns information about all nft that the user follows. {follow,nft,userDetail}
      */
     @GetMapping("/search/{keyword}")
     public Result searchByKeyWord(@PathVariable String keyword){

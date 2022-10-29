@@ -11,14 +11,15 @@ public class SmsSendUtil{
     @Autowired
     private CreateSmsCode smsCode;
 
-    //把数据放入缓存，不取出来（如果空间中有key为#tel的值就把，对应的值存进去或者取出来）
+    //Put the data into the cache and do not take it out
+    // (if there is a value with key #tel in the space, put the corresponding value in or take it out)
     @CachePut(value = "VerifyCodeSpace", key = "#tel")
     public String sentCode(String tel) {
         return smsCode.createCode(tel);
     }
 
     /**
-     * 用户输入的code和这个创建出来的code做校验
+     * The code entered by the user is verified against the created code
      */
     public boolean checkCode(SmsMessage smsMessage) {
 
