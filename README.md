@@ -51,4 +51,4 @@ String nftImageUrl = "D:/USYD-2022-S2-ELEC5620-Stage 2/front-end/CreatX/src/asse
 
 ## License
 
-This project is licensed under the GNU GPLv3 License - see the [LICENSE](https://github.com/djl-win/elec5620-assiment/blob/main/LICENSE) file for details.
+This project is licensed under the GNU GPLv3 License - see the [LICENSE](https://github.com/djl-win/elec5620-assiment/blob/master/LICENSE) file for details.
