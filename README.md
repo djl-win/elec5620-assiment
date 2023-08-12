@@ -48,3 +48,7 @@ You must modify the NftServiceImpl file in the impl folder under the service lay
 
 ##### Example:
 String nftImageUrl = "D:/USYD-2022-S2-ELEC5620-Stage 2/front-end/CreatX/src/assets/nftWorks/" + signature + ".png";
+
+## License
+
+This project is licensed under the GNU GPLv3 License - see the [LICENSE](https://github.com/djl-win/elec5620-assiment/blob/main/LICENSE) file for details.
